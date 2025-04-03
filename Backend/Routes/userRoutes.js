@@ -17,13 +17,29 @@ router.get("/home",ensureUserAuthenticated,(req,res)=>{
 
 router.post("/register",validateUser,registerUser)
 
-router.post("/login",
-    passport.authenticate("local"), // Authenticate user
-    restrictUserLoginRoute,
-    (req, res) => {
-        res.json({ message: "Successfully Logged In", user: req.user });
-    }
-);
+router.post("/login",restrictUserLoginRoute, (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        // Internal server error
+        return res.status(500).json({ message: "An error occurred during authentication.", error: err.message });
+      }
+      if (!user) {
+        // Authentication failed
+        return res.status(401).json({ message: info.message || "Authentication failed." });
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          // Login failure
+          return res.status(500).json({ message: "Login failed.", error: err.message });
+        }
+        // Successful login
+        return res.status(200).json({ message: "Successfully Logged In", user });
+      });
+    })(req, res, next);
+  });
+
+
+
 router.get("/logout",logout,(req,res)=>{
     res.status(200).json({message : "User is Successfully Logged Out"})
 })

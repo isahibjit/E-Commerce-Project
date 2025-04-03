@@ -21,6 +21,7 @@ passport.deserializeUser(async (id, cb)=>{
 passport.use(new Strategy({usernameField : "email"},
     async function verify(email, password, cb){
         try {
+            
             const  result = await db.query("SELECT * FROM users WHERE email = $1",[email])
             if(result.rows.length > 0){
                 const user = result.rows[0]
@@ -33,11 +34,12 @@ passport.use(new Strategy({usernameField : "email"},
                         if(valid)
                             return cb(null, user)
                         // Did not pass the password check
-                        return cb(null,false, {message : "Incorrect Password"})
+                        return cb(null,false, {message : "Incorrect Password" , code : 401})
                     }
                 })
             }
             else{
+                console.log("User don't exist man")
                 cb(null,false,{message : "User not Found"})
             }
         } catch (error) {

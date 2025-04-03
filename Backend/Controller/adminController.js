@@ -1,26 +1,28 @@
 import db from "../Config/db.js"
 import bcrypt from "bcrypt"
-
+import { registerAdminService } from "../Services/adminAuthService.js"
+import "../Config/passport.js"
 export const registerAdmin = async (req, res) => {
     try {
-        const { name, email, password } = req.body
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const result = await db.query("INSERT INTO users (name, email, password, isadmin) VALUES ($1,$2,$3,TRUE) RETURNING *", [name, email, hashedPassword])
-        const adminUser = result.rows[0]
-        req.login(adminUser, (err) => {
+        const userData = req.body
+        const {success, userAdmin} = await registerAdminService(userData)
+        req.login(userAdmin, (err) => {
             if (err) {
                 return res.status(500).json({
                     message: "admin registered but login failed",
-                    admin: adminUser,
+                    admin: userAdmin,
                     error: err.message
                 })
             }
             res.status(201).json({
                 message: "Successfully Added and logged in the User",
-                admin: adminUser
+                admin: userAdmin
             })
         })
     } catch (error) {
-        res.status(500).json({ message: "Error Creating the admin", error: error.message })
+        if(error.message === "Email is already taken"){
+            return res.status(409).json({message : error.message})
+        }
+        res.status(500).json({error :"Internal Server Error : "+error.message})
     }
 }

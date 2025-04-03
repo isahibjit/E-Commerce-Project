@@ -1,5 +1,6 @@
 import db from "../Config/db.js"
 import bcrypt from "bcrypt"
+import { registerUserService } from "../Services/userAuthService.js"
 
 export const getUsers = async (req, res) => {
     try {
@@ -17,30 +18,29 @@ export const getUsers = async (req, res) => {
     }
 }
 export const registerUser = async (req, res) => {
-    const { name, email, password } = req.body
-    const hashedPassword = password && password.trim() !== "" ? await bcrypt.hash(password, 10) : null
-    try {
-        const result = await db.query(`INSERT INTO users(name, email, password) VALUES ($1,$2,$3) RETURNING *`, [name, email, hashedPassword])
-        const user = result.rows[0]
-        req.login(user, (err) => {
-            if (err) {
-                return res.status(500).json({
-                    message: "user registered but login failed",
-                    user: user,
-                    error: err.message
-                })
-            }
-            res.status(201).json({
-                message: "Successfully Added and logged in the User",
-                user: user
+  try {
+    const userData = req.body
+    const {success , user} = await registerUserService(userData)
+    req.login(user, (err) => {
+        if (err) {
+            return res.status(500).json({
+                message: "user registered but login failed",
+                user: user,
+                error: err.message
             })
-        })
-    } catch (error) {
-        if (error.constraint === "unique_email") {
-            return res.status(409).json({ message: "Email is already taken" })
         }
-        res.status(500).json({ message: "Failed to add the data", error: error.message })
+        return res.status(201).json({
+            message: "Registration Successful",
+            user: user
+        })
+    })
+} catch (error) {
+    if(error.message === "Email is already taken"){
+        return res.status(409).json({message : error.message})
     }
+      
+    res.status(500).json({error :"Internal Server Error : "+error.message})
+  }
 }
 
 export const getUser = async (req, res) => {
@@ -91,4 +91,3 @@ export const deleteUser = async (req, res) => {
         res.status(500).send({ success: false, message: "Failed to Delete User", error: error })
     }
 }
-

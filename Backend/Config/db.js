@@ -6,7 +6,7 @@ const db = new pg.Client({
     host : process.env.PG_HOST,
     database : process.env.PG_DATABASE,
     port : process.env.PG_PORT,
-    password : process.env.PG_PASSWORD
+    password : process.env.PG_PASSWORD 
 })
 db.connect()
 .then(()=>{console.log("Connected to the database successfully !")})
