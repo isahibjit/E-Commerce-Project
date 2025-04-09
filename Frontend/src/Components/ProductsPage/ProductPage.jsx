@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import sizes from "../AdminDashboard/DashboardComponents/Sizes";
-import { FaRupeeSign } from "react-icons/fa";
+import { FaAngleDown, FaRupeeSign } from "react-icons/fa";
 import { EasyZoomOnHover } from "easy-magnify";
 import { EasyZoomOnMove } from "easy-magnify";
 import RelatedProducts from "./RelatedProducts";
@@ -13,9 +13,8 @@ import { CartContext } from "../../Contexts/CartContext.jsx";
 const ProductPage = () => {
   const { addToCart } = useContext(CartContext);
 
-  const [quantity,setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState();
-
 
   const [currentImage, setCurrentImage] = useState(0);
   const { id } = useParams();
@@ -43,7 +42,7 @@ const ProductPage = () => {
     };
     fetchDefaultProduct();
   }, [id]);
- 
+
   useEffect(() => {
     if (product?.product_img_urls?.length > 0) {
       // Reset loading state whenever the current image changes
@@ -75,7 +74,7 @@ const ProductPage = () => {
             ))}
           </div>
 
-          <div className="max-w-[600px] ">
+          <div className="max-w-[600px] z-20 ">
             {product?.product_img_urls?.length > 0 && isImageLoaded && (
               <EasyZoomOnHover
                 mainImage={{
@@ -107,13 +106,40 @@ const ProductPage = () => {
             </div>
             <div className="flex items-center">
               <FaRupeeSign className="md:text-2xl text-lg text-gray-800" />
+
               <h1 className="md:text-3xl text-lg font-semibold">
                 {product.product_price}
               </h1>
             </div>
-            <div>
-              <label htmlFor="Quantity">Quantity</label>
-              <input type="number" id="Quantity" className="p-2 outline-none border border-gray-500 rounded-lg w-18" min={1} />
+            <div className="flex flex-col gap-2">
+            <label htmlFor="quantity">Quantity : {quantity}</label>
+              {product.stock_quantity > 0 ? (
+                <div>
+                  <div className="relative z-10 w-25">
+                    <select
+                      onClick={(e)=>setQuantity(e.target.value)}
+                      id="Quantity"
+                      className="block w-24 appearance-none rounded border border-gray-400 bg-white px-3 py-2 pr-8 text-sm leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
+                    >
+                      {Array.from(
+                        { length: product.stock_quantity },
+                        (_, i) => (
+                          <option key={i} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        )
+                      )}
+                    </select>
+
+                    {/* Custom dropdown arrow */}
+                    <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-gray-500">
+                      <FaAngleDown className="z-20" />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-xl text-gray-700 ">OUT OF STOCK</div>
+              )}
             </div>
             <div>
               <p className="text-gray-600 font-semibold ">
@@ -128,21 +154,17 @@ const ProductPage = () => {
                     <input
                       key={index}
                       type="checkbox"
+                      htmlFor="size"
                       className="btn w-fit rounded-md bg-gray-500 border-none text-white checked:bg-pink-400 focus:ring focus:ring-pink-400"
                       value={sizeOption}
                       aria-label={sizeOption}
-                      onClick={(e) =>
-                        setSize((prev) =>
-                          prev.includes(e.target.value)
-                            ? prev
-                            : [...prev, e.target.value]
-                        )
-                      }
+                      checked = {size === sizeOption}
+                      onChange={()=>setSize(sizeOption)}
                     />
                   ))}
                 </div>
                 <div>
-                  <button className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
+                  <button onClick={()=>addToCart(product,size,quantity)} className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
                     ADD TO CART
                   </button>
                 </div>
@@ -184,12 +206,16 @@ const ProductPage = () => {
           <span className="w-13 h-[2px] bg-black"></span>
         </div>
       </div>
-      <div>{product.product_category && product.type && product.product_id ? 
-        <RelatedProducts
-          category={product.product_category}
-          type={product.type}
-          productId = {product.product_id}
-        />  : <span className="text-2xl  text-gray-700">No </span>}
+      <div>
+        {product.product_category && product.type && product.product_id ? (
+          <RelatedProducts
+            category={product.product_category}
+            type={product.type}
+            productId={product.product_id}
+          />
+        ) : (
+          <span className="text-2xl  text-gray-700">No </span>
+        )}
       </div>
     </div>
   );
