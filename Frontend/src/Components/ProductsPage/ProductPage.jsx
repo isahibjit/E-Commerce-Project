@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import sizes from "../AdminDashboard/DashboardComponents/Sizes";
@@ -11,6 +11,7 @@ import RelatedProducts from "./RelatedProducts";
 import { CartContext } from "../../Contexts/CartContext.jsx";
 
 const ProductPage = () => {
+  const navigate = useNavigate()
   const { addToCart } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(1);
@@ -164,7 +165,15 @@ const ProductPage = () => {
                   ))}
                 </div>
                 <div>
-                  <button onClick={()=>addToCart(product,size,quantity)} className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
+                  <button onClick={()=>{
+                    if(size){
+                      addToCart(product,size,quantity)
+                      navigate("/cart")
+                    }
+                    else{
+                      toast.info("Select the Size please")
+                    }
+                  } } className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
                     ADD TO CART
                   </button>
                 </div>
