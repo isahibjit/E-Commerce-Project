@@ -28,7 +28,9 @@
   font-style: normal;
 }
 
-
+body{
+  overflow-x: hidden;
+}
 .noto-serif-display{
   font-family: "Noto Serif Display", serif;
   font-weight : 500;

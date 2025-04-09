@@ -117,10 +117,10 @@ export const uploadImage = async (req, res) => {
 
 export const filterProduct = async (req, res) => {
     try {
-        const {type = [],category = [], sort,_page} = req.query || {}
+        const {type = [],category = [], sort,_page,productId} = req.query || {}
        
 
-        if (req.query.type  || req.query.category || req.query.sort || req.query._page) {
+        if (req.query.type  || req.query.category || req.query.sort || req.query._page || req.query.productId) {
             const types = type.filter((typeQuery) => typeQuery.trim() !== "" && typeQuery.trim() !== null).map((type) => type.trim())
             const categories = category.filter((categoryQuery) => categoryQuery.trim() !== "" && categoryQuery.trim() !== null).map((category) => category.trim()) 
             let filters = {type : null,category : null,sort : null,_page : null}
@@ -135,6 +135,9 @@ export const filterProduct = async (req, res) => {
             }
             if(_page){
                 filters._page = _page
+            }
+            if(productId){
+                filters.productId = productId
             }
             const { products } = await filterProductService(filters)
             return res.status(200).json({ message: "Successfully Retrieved all the products", products })

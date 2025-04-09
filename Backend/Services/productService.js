@@ -310,6 +310,11 @@ export const filterProductService = async (filters) => {
             andClauses.push(`(${categoriesClause.join(" OR ")})`)
             values.push(...filters.category)
         }
+        if(filters.productId ) {
+            const productIdClause = `p.product_id != $${paramIndex}`
+            andClauses.push(productIdClause)
+            values.push(filters.productId)
+        }
         if (andClauses.length > 0) {
             query += `WHERE ${andClauses.join(" AND ")}`
         }

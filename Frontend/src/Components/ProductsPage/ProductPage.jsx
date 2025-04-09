@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
@@ -7,12 +7,18 @@ import sizes from "../AdminDashboard/DashboardComponents/Sizes";
 import { FaRupeeSign } from "react-icons/fa";
 import { EasyZoomOnHover } from "easy-magnify";
 import { EasyZoomOnMove } from "easy-magnify";
-import LatestCollections from "../HomeComponents/LatestCollections";
+import RelatedProducts from "./RelatedProducts";
+import { CartContext } from "../../Contexts/CartContext.jsx";
 
 const ProductPage = () => {
+  const { addToCart } = useContext(CartContext);
+
+  const [quantity,setQuantity] = useState(1)
+  const [size, setSize] = useState();
+
+
   const [currentImage, setCurrentImage] = useState(0);
   const { id } = useParams();
-  const [size, setSize] = useState([]);
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [product, setProduct] = useState({});
@@ -37,7 +43,7 @@ const ProductPage = () => {
     };
     fetchDefaultProduct();
   }, [id]);
-
+ 
   useEffect(() => {
     if (product?.product_img_urls?.length > 0) {
       // Reset loading state whenever the current image changes
@@ -105,7 +111,10 @@ const ProductPage = () => {
                 {product.product_price}
               </h1>
             </div>
-
+            <div>
+              <label htmlFor="Quantity">Quantity</label>
+              <input type="number" id="Quantity" className="p-2 outline-none border border-gray-500 rounded-lg w-18" min={1} />
+            </div>
             <div>
               <p className="text-gray-600 font-semibold ">
                 {product.product_description}
@@ -169,12 +178,18 @@ const ProductPage = () => {
       </div>
       <div>
         <div className="text-3xl flex items-center justify-center font-semibold  mt-16 mb-8">
-          <h1 className="text-gray-500">RELATED <span className="text-black">PRODUCT</span></h1>
+          <h1 className="text-gray-500">
+            RELATED <span className="text-black">PRODUCT</span>
+          </h1>
           <span className="w-13 h-[2px] bg-black"></span>
         </div>
       </div>
-      <div>
-        <LatestCollections />
+      <div>{product.product_category && product.type && product.product_id ? 
+        <RelatedProducts
+          category={product.product_category}
+          type={product.type}
+          productId = {product.product_id}
+        />  : <span className="text-2xl  text-gray-700">No </span>}
       </div>
     </div>
   );
