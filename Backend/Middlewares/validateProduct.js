@@ -7,7 +7,6 @@ export const validateProduct = (req, res, next) => {
         productCategory,
         productDescription
     } = req.body;
-
     // Validate productName
     if (!productName || productName.trim() === "") {
         return res.status(400).json({ message: "Product name is required." });
@@ -39,7 +38,7 @@ export const validateProduct = (req, res, next) => {
     // Validate productDescription
     if (!productDescription || productDescription.trim() === "") {
         return res.status(400).json({ message: "Product description is required." });
-    } else if (productDescription.length > 500) {
+    } else if (productDescription.length > 1000) {
         return res.status(400).json({ message: "Product description must be less than 500 characters." });
     }
      // Validate size

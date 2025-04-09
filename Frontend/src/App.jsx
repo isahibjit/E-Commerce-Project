@@ -13,7 +13,10 @@ import Contact from "./Components/HeaderPages/Contact.jsx";
 import Login from "./Components/Login.jsx";
 import AdminPanel from "./Components/SignUp/AdminPanel.jsx";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard.jsx";
-import AdminDashboardAddItems from "./Components/AdminDashboard/AdminDashboardAddItems.jsx";
+import AdminDashboardAddItems from "./Components/AdminDashboard/Admin Pages/AdminDashboardAddItems.jsx";
+import AdminListItems from "./Components/AdminDashboard/Admin Pages/AdminListItems.jsx";
+import ProductPage from "./Components/ProductsPage/ProductPage.jsx";
+import Cart from "./Components/ProductsPage/Cart.jsx";
 const router = createBrowserRouter([
   {
     path : "/",
@@ -44,6 +47,12 @@ const router = createBrowserRouter([
   },{
     path : "/admin",
     element : <AdminPanel />
+  },{
+    path : "/product/:id/:name",
+    element : <ProductPage />
+  },{
+    path : "/cart",
+    element: <Cart />
   }
   ]
   },{
@@ -52,6 +61,9 @@ const router = createBrowserRouter([
     children : [{
       path : "add",
       element : <AdminDashboardAddItems />
+    },{
+      path : "list-items",
+      element : <AdminListItems />
     }]
   }
   

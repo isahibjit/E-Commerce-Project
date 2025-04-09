@@ -4,55 +4,54 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import db from "./Config/db.js";
 import morgan from "morgan";
-import session from "express-session"
-import "./Config/passport.js"
+import session from "express-session";
+import "./Config/passport.js";
 import passport from "passport";
 import userRoutes from "./Routes/userRoutes.js";
-import adminRoutes from "./Routes/adminRoutes.js"
-import productRoutes from "./Routes/productRoutes.js"
+import adminRoutes from "./Routes/adminRoutes.js";
+import productRoutes from "./Routes/productRoutes.js";
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(
-    cors({
-      origin: "http://localhost:5173", // Allow requests from your frontend
-      credentials: true, // Allow cookies to be sent
-    })
-  )
-  
-app.use(morgan("dev"))
+  cors({
+    origin: "http://localhost:5173", // Allow requests from your frontend
+    credentials: true, // Allow cookies to be sent
+  })
+);
+
+app.use(morgan("dev"));
 
 //creating a session here !
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET || "country",
     resave: false,
     saveUninitialized: false,
-    cookie  : {
-        maxAge : 30*60*1000,
-        httpOnly : true,
-        secure : false,
-        sameSite : "lax"
-    }
-}));
-app.use(passport.initialize())
-app.use(passport.session())
-app.use("/api/admin",adminRoutes)
+    cookie: {
+      maxAge: 30 * 60 * 1000,
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/product",productRoutes)
+app.use("/api/product", productRoutes);
 
 app.get("/", (req, res) => {
-    res.status(200).send("Working Now");
+  res.status(200).send("Working Now");
 });
 
-
-
-
 async function initDb() {
-    try {
-        await db.query(
-            `CREATE TABLE IF NOT EXISTS users (
+  try {
+    await db.query(
+      `CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
@@ -60,9 +59,9 @@ async function initDb() {
                 isAdmin BOOLEAN DEFAULT FALSE,
                 CONSTRAINT unique_email UNIQUE (email)
             )`
-        );
-         // Create ENUM types for category and type (if not exist)
-         await db.query(`
+    );
+    // Create ENUM types for category and type (if not exist)
+    await db.query(`
             DO $$ BEGIN
                 IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'category_enum') THEN
                     CREATE TYPE category_enum AS ENUM ('Men', 'Women', 'Kids');
@@ -73,8 +72,8 @@ async function initDb() {
             END $$;
         `);
 
-        // Create Products Table
-        await db.query(`
+    // Create Products Table
+    await db.query(`
             CREATE TABLE IF NOT EXISTS products (
                 product_id SERIAL PRIMARY KEY,
                 product_name VARCHAR(255) NOT NULL,
@@ -90,21 +89,22 @@ async function initDb() {
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             );
         `);
-        
+    // Create Product Images Url
+    await db.query(`CREATE TABLE IF NOT EXISTS product_images (
+                image_id SERIAL PRIMARY KEY,   -- Auto-incrementing unique ID for each image
+                product_id INT NOT NULL,       -- Foreign Key referencing Products table
+                Product_Img_Url TEXT NOT NULL, -- URL of the product image
+                FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE
+);
+`);
 
-        console.log("Database initialized successfully!");
-
-    
-
-
-    
-    } catch (error) {
-        console.log("Error Connecting to the db",error)
-    }
-
+    console.log("Database initialized successfully!");
+  } catch (error) {
+    console.log("Error Connecting to the db", error);
+  }
 }
 initDb().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Backend running on Port ${PORT}`)
-    })
-})
+  app.listen(PORT, () => {
+    console.log(`Backend running on Port ${PORT}`);
+  });
+});

@@ -4,15 +4,34 @@
   themes: light --default, dark --prefersdark, cupcake;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&display=swap');
+
 .poppins-regular {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight :700 ;
+  font-style: normal;
+}
+
 .roboto-regular{
   font-family: "Roboto Flex", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+.roboto-bold{
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.noto-serif-display{
+  font-family: "Noto Serif Display", serif;
+  font-weight : 500;
 }
 .form-input {
   @apply border outline-none w-96  text-xl rounded-lg p-2
@@ -25,4 +44,7 @@
 }
 .admin-upload-img{
   @apply border-[1px] border-gray-200 shadow-lg cursor-pointer hover:scale-110 transition-all duration-200 w-19 md:w-24
+}
+body{
+  @apply absolute top-0 z-[-2]  w-full  transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]
 }

@@ -43,7 +43,7 @@ const AdminPanel = () => {
   }, [errors]);
 
   return (
-    <div className="lg:max-w-[50%] p-3 shadow-2xl mx-auto">
+    <div className="lg:max-w-[50%] px-8 md:py-8 py-32 shadow-2xl mx-auto">
     <div className="flex flex-col items-center  ">
       <div className="relative">
         <h1 className="text-4xl  p-4 text-gray-800 font-serif text-center ">
