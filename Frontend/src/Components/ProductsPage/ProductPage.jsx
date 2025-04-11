@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import sizes from "../AdminDashboard/DashboardComponents/Sizes";
 import { FaAngleDown, FaRupeeSign } from "react-icons/fa";
 import { EasyZoomOnHover } from "easy-magnify";
-import { EasyZoomOnMove } from "easy-magnify";
 import RelatedProducts from "./RelatedProducts";
 import { CartContext } from "../../Contexts/CartContext.jsx";
 
