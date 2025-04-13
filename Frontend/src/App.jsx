@@ -16,7 +16,8 @@ import AdminDashboard from "./Components/AdminDashboard/AdminDashboard.jsx";
 import AdminDashboardAddItems from "./Components/AdminDashboard/Admin Pages/AdminDashboardAddItems.jsx";
 import AdminListItems from "./Components/AdminDashboard/Admin Pages/AdminListItems.jsx";
 import ProductPage from "./Components/ProductsPage/ProductPage.jsx";
-import Cart from "./Components/ProductsPage/Cart.jsx";
+import Cart from "./Components/Cart/Cart.jsx";
+import Checkout from "./Components/Cart/Checkout.jsx";
 const router = createBrowserRouter([
   {
     path : "/",
@@ -53,6 +54,9 @@ const router = createBrowserRouter([
   },{
     path : "/cart",
     element: <Cart />
+  },{
+    path : "/checkout",
+    element : <Checkout />
   }
   ]
   },{

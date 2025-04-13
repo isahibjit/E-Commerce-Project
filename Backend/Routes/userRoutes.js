@@ -11,8 +11,8 @@ router.get("/",getUsers)
 
 // router.get("/:id",getUser)
 
-router.get("/home",ensureUserAuthenticated,(req,res)=>{
-    res.json({message : "Welcome to user home page"})    
+router.get("/auth",ensureUserAuthenticated,(req,res)=>{
+    res.json({login : true ,message : "User is logged in",user : {name : req.user.name, email : req.user.email}})    
 })
 
 router.post("/register",validateUser,registerUser)
@@ -33,7 +33,7 @@ router.post("/login",restrictUserLoginRoute, (req, res, next) => {
           return res.status(500).json({ message: "Login failed.", error: err.message });
         }
         // Successful login
-        return res.status(200).json({ message: "Successfully Logged In", user });
+        return res.status(200).json({ message: "Successfully Logged In" });
       });
     })(req, res, next);
   });

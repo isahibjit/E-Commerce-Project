@@ -13,6 +13,7 @@
     "@headlessui/react": "^2.2.1",
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.4",
+    "dotenv": "^16.5.0",
     "easy-magnify": "^1.1.4",
     "ldrs": "^1.1.6",
     "react": "^19.0.0",

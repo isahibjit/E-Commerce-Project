@@ -57,7 +57,7 @@ const Home = () => {
             🔥BEST{" "}
               <span className="text-slate-700 roboto-bold pr-3">SELLERS</span>
               <span className="w-13 h-[2px] absolute rounded-lg bg-gray-800 top-[50%]"></span>
-            </h1>
+            </h1> 
           </div>
 
           <p className="text-center text-gray-600">

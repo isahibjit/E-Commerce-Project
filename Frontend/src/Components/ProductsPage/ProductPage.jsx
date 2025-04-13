@@ -112,9 +112,9 @@ const ProductPage = () => {
               </h1>
             </div>
             <div className="flex flex-col gap-2">
-            <label htmlFor="quantity">Quantity : {quantity}</label>
               {product.stock_quantity > 0 ? (
                 <div>
+                  <label htmlFor="quantity">Quantity : {quantity}</label>
                   <div className="relative z-10 w-25">
                     <select
                       onClick={(e)=>setQuantity(e.target.value)}
@@ -164,9 +164,11 @@ const ProductPage = () => {
                   ))}
                 </div>
                 <div>
+                {product.stock_quantity > 0 ? (
                   <button onClick={()=>{
                     if(size){
                       addToCart(product,size,quantity)
+                      
                       navigate("/cart")
                     }
                     else{
@@ -175,6 +177,8 @@ const ProductPage = () => {
                   } } className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
                     ADD TO CART
                   </button>
+                ) : <button className="  bg-[#fd6a60] hover:bg-[#ec4747e7] rounded-lg font-semibold px-8 py-3 cursor-not-allowed">Out of Stock</button>}
+                  
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuUserRound } from "react-icons/lu";
@@ -6,12 +6,12 @@ import { BiShoppingBag } from "react-icons/bi";
 import { Link, NavLink } from "react-router-dom";
 import { CiMenuFries } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
+import { CartContext } from "../Contexts/CartContext";
 
 const Navbar = () => {
   const [hamburgerClicked, sethamburgerClicked] = useState(false);
-  const hamburgerStyle = "translate-x-0";
   const [cartCount, setCartCount] = useState(0);
-
+  const { cartItems,getSubTotalPrice  } = useContext(CartContext);
   useEffect(() => {
     if (hamburgerClicked) {
       document.body.classList.add("overflow-hidden");
@@ -135,7 +135,7 @@ const Navbar = () => {
                   ></path>{" "}
                 </svg>
                 <span className="badge badge-sm bg-black text-white indicator-item">
-                  {cartCount}
+                  {cartItems.length}
                 </span>
               </div>
             </div>
@@ -144,11 +144,11 @@ const Navbar = () => {
               className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg  font-bold">{cartCount} Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-lg  font-bold">{cartItems.length} Items</span>
+                <span className="text-info">Subtotal: {getSubTotalPrice()}₹</span>
                 <div className="card-actions">
                   <Link to="/cart">
-                    <button className="btn btn-primary btn-block">
+                    <button className=" bg-yellow-400 p-2 rounded-lg hover:bg-yellow-500 cursor-pointer transition-colors duration-200 btn-block">
                       View cart
                     </button>
                   </Link>

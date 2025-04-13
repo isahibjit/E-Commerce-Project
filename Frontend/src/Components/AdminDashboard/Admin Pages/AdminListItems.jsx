@@ -122,7 +122,7 @@ const AdminListItems = () => {
             />
             <div className="w-[15%]  overflow-hidden rounded-md">
               <img
-                src={`https://res.cloudinary.com/sunnysingh78376/image/upload/q_auto,w_200,h_300/v1743761910/${product.product_img_url}`}
+                src={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fit,q_auto,w_200,h_300/v1743761910/${product.product_img_url}`}
                 alt="product"
                 className="object-cover w-[100px] h-[100px]"
               />

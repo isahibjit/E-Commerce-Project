@@ -6,7 +6,7 @@ export const ensureUserAuthenticated = (req, res, next) => {
             res.status(403).json({message : "Access denied: Users only"})
         }
     } else {
-        res.status(401).json({ message: "Unauthorized: Please login to access" });
+        res.status(401).json({login : false, message: "Unauthorized: Please login to access" });
     }
 };
 

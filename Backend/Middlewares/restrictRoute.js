@@ -45,7 +45,7 @@ export const restrictUserLoginRoute = async (req, res, next) => {
             const result = await db.query("SELECT isadmin from users WHERE email = $1", [email])
             if (result.rows.length > 0) {
                 const isAdmin = result.rows[0].isadmin
-                if (isAdmin)
+                if (!isAdmin)
                     return next()
                 else 
                     return res.status(403).json({ message: "Access denied: Admins cannot use this route to login" })
