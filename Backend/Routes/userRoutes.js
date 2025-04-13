@@ -1,5 +1,5 @@
 import express from "express"
-import { getUsers, registerUser,getUser,updateUser, deleteUser } from "../Controller/userController.js"
+import { getUsers, registerUser,getUser,updateUser, deleteUser, forgotPassword, resetPassword } from "../Controller/userController.js"
 import { validateUser } from "../Middlewares/validateUser.js"
 import passport from "passport"
 import { ensureUserAuthenticated } from "../Middlewares/ensureAuthenticated.js"
@@ -12,7 +12,7 @@ router.get("/",getUsers)
 // router.get("/:id",getUser)
 
 router.get("/auth",ensureUserAuthenticated,(req,res)=>{
-    res.json({login : true ,message : "User is logged in",user : {name : req.user.name, email : req.user.email}})    
+    res.json({message : "User is logged in",user : {name : req.user.name, email : req.user.email, login : true }})    
 })
 
 router.post("/register",validateUser,registerUser)
@@ -48,8 +48,8 @@ router.put("/:id",updateUser)
 
 router.delete("/:id",deleteUser)
 
-
-
+router.post("/forgot-password",restrictUserLoginRoute,forgotPassword)
+router.post("/reset-password",resetPassword)
 export default router
 
 

@@ -123,7 +123,7 @@ export const filterProduct = async (req, res) => {
         if (req.query.type  || req.query.category || req.query.sort || req.query._page || req.query.productId) {
             const types = type.filter((typeQuery) => typeQuery.trim() !== "" && typeQuery.trim() !== null).map((type) => type.trim())
             const categories = category.filter((categoryQuery) => categoryQuery.trim() !== "" && categoryQuery.trim() !== null).map((category) => category.trim()) 
-            let filters = {type : null,category : null,sort : null,_page : null}
+            let filters = {type : null,category : null,sort : null,page : null}
             if(categories.length > 0){
                filters.category = categories
             }
@@ -134,13 +134,13 @@ export const filterProduct = async (req, res) => {
                 filters.sort = sort
             }
             if(_page){
-                filters._page = _page
+                filters.page = _page
             }
             if(productId){
                 filters.productId = productId
             }
             const { products } = await filterProductService(filters)
-            return res.status(200).json({ message: "Successfully Retrieved all the products", products })
+            return res.status(200).json({products})
         }
     
         const { products } = await getProductService()

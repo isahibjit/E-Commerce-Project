@@ -2,7 +2,7 @@ import { url } from "node:inspector";
 import db from "../Config/db.js";
 import cloudinary from "../utils/cloudinary.js";
 import { unlink } from "node:fs";
-
+import { verifyToken,generateResetToken } from "../Config/JWT.js";
 export const getProductService = async (isBestseller) => {
 
     try {
@@ -335,18 +335,17 @@ export const filterProductService = async (filters) => {
             `
         }
         // pagination
-        const limit = 12
+        const limit = 8
         const page = filters.page && filters.page > 0 ? filters.page : 1
         const offset = (page - 1) * limit
         query += `LIMIT ${limit} OFFSET ${offset};`
-
         console.log(query)
         const result = await db.query(query, values);
         if (result.rows.length > 0) {
             const products = result.rows;
             return { products };
         } else {
-            throw new Error("Empty");
+            return {products : [],message : "No Products Found"}
         }
     } catch (error) {
         console.log(error)

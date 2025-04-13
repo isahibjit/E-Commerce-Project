@@ -1,21 +1,24 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
- export const UserContext = createContext();
-const BACKEND_API = import.meta.env.VITE_BACKEND_API
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
+export const UserContext = createContext();
+
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(
-            BACKEND_API + "api/user/auth"
-        ,{withCredentials : true});
-        
+        const response = await axios.get(BACKEND_API + "api/user/auth", {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          setUser(response.data.user);
+        }
       } catch (error) {
         if (error.status === 403) {
           console.log(error.response.data.message);
-          setUser(null);
+          setUser({ login: false });
         }
         console.log(error);
       }

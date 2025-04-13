@@ -52,7 +52,7 @@ export const restrictUserLoginRoute = async (req, res, next) => {
                 
             }
             else
-                return res.status(404).json({message : "Not Registered !"})
+                return res.status(404).json({message : "User not found !"})
         } catch (error) {
             return res.status(500).json({ message: "An error Occurred", error })
         }

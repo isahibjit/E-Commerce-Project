@@ -2,16 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuUserRound } from "react-icons/lu";
-import { BiShoppingBag } from "react-icons/bi";
+
 import { Link, NavLink } from "react-router-dom";
 import { CiMenuFries } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
 import { CartContext } from "../Contexts/CartContext";
+import { UserContext } from "../Contexts/UserContext";
+import Logout from "../Authentications/logout";
 
 const Navbar = () => {
   const [hamburgerClicked, sethamburgerClicked] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const { cartItems,getSubTotalPrice  } = useContext(CartContext);
+  const { cartItems, getSubTotalPrice } = useContext(CartContext);
+  const { user } = useContext(UserContext);
+
+  console.log(user);
   useEffect(() => {
     if (hamburgerClicked) {
       document.body.classList.add("overflow-hidden");
@@ -103,15 +108,44 @@ const Navbar = () => {
           <span className="cursor-pointer hover:bg-pink-300 p-2 rounded-lg transition-all duration-200">
             <IoSearchOutline />
           </span>
-          <NavLink
-            to="/login"
-            className="cursor-pointer hover:bg-pink-300 p-2 rounded-lg transition-all duration-200"
-          >
-            <span>
-              <LuUserRound />
-            </span>
-          </NavLink>
 
+          {user.login ? (
+            <div className="dropdown dropdown-hover dropdown-end">
+              <div
+                tabIndex="0"
+                role="button"
+                className="btn hover:bg-pink-300 p-2 text-black btn-ghost border-0 rounded-lg"
+              >
+                <div className="indicator">
+                  <LuUserRound className="text-2xl" />
+                </div>
+              </div>
+              <div
+                tabIndex="0"
+                className="card card-compact dropdown-content bg-base-100 z-1 mt-0 w-52 shadow"
+              >
+                <div className="card-body">
+                  <div className="card-actions">
+                   <Logout />
+                  </div>
+                    <Link to="/orders">
+                  <div className="card-actions">
+                    <button className=" bg-yellow-400 p-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2  btn-block cursor-pointer transition-colors duration-200 btn-block">
+                      View Orders
+                    </button>
+                  </div>
+                    </Link>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Link to={"/login"}>
+              <span className="btn hover:bg-pink-300 p-2 text-black btn-ghost border-0 rounded-lg">
+                {" "}
+                <LuUserRound className="text-2xl" />
+              </span>
+            </Link>
+          )}
           <div className="dropdown dropdown-end">
             <div
               tabIndex="0"
@@ -144,16 +178,22 @@ const Navbar = () => {
               className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg  font-bold">{cartItems.length} Items</span>
-                <span className="text-info">Subtotal: {getSubTotalPrice()}₹</span>
-                <div className="card-actions">
-                  <Link to="/cart">
-                    <button className=" bg-yellow-400 p-2 rounded-lg hover:bg-yellow-500 cursor-pointer transition-colors duration-200 btn-block">
-                      View cart
+              <span className="text-lg  font-bold mx-auto">
+                  {cartItems.length} Items
+                </span>
+                  <div className="card-actions text-xl mx-auto">
+                  <span className="text-info ">
+                  Subtotal:₹ {getSubTotalPrice()}
+                </span>
+                  </div>
+                  <div className="card-actions mx-auto ">
+                    <a href="/cart">
+                    <button className=" bg-yellow-400 px-4 py-2 text-2xl cursor-pointer rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2  btn-block cursor-pointer transition-colors duration-200 btn-block">
+                      View Cart
                     </button>
-                  </Link>
+                    </a>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
           <span
