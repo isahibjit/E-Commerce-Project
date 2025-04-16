@@ -16,3 +16,13 @@ export const registerAdminService = async (userData) => {
         throw new Error("Failed to add the user ",+error.message)
     }
 }
+
+export const getAdminService = async (userId) => {
+    try {
+        const result = await db.query(`SELECT * FROM users WHERE id = $1`, [userId])
+        const userAdmin = result.rows[0]
+        return userAdmin
+    } catch (error) {
+        throw new Error("Failed to get the user ",+error.message)
+    }
+}

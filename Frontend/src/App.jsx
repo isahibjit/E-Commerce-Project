@@ -14,14 +14,18 @@ const  Contact = lazy(()=> import( "./Pages/Contact.jsx"))
 const  Login = lazy(()=> import( "./Authentications/Login.jsx"))
 const  AdminPanel = lazy(()=> import( "./Authentication/AdminPanel.jsx"))
 const  AdminDashboard = lazy(()=> import( "./Admin/AdminDashboard/AdminDashboard.jsx"))
+const AdminAppLayout = lazy(()=> import( "./Admin/AdminDashboard/Admin Pages/AdminAppLayout.jsx"))
 const  AdminDashboardAddItems = lazy(()=> import( "./Admin/AdminDashboard/Admin Pages/AdminDashboardAddItems.jsx"))
 const  AdminListItems = lazy(()=> import( "./Admin/AdminDashboard/Admin Pages/AdminListItems.jsx"))
+const  AdminOrders = lazy(()=> import( "./Admin/AdminDashboard/Admin Pages/AdminOrders.jsx"))
 const  ProductPage = lazy(()=> import( "./Pages/ProductsPage/ProductPage.jsx"))
 const  Cart = lazy(()=> import( "./Cart/Cart.jsx"))
 const  Checkout = lazy(()=> import( "./Cart/Checkout.jsx"))
 const  ForgotPassword = lazy(()=> import( "./Authentications/ForgotPassword.jsx"))
 const  ResetPassword = lazy(()=> import( "./Authentications/ResetPassword.jsx"))
 const  Orders = lazy(()=> import( "./Orders/Orders.jsx"))
+const SuccessPage = lazy(()=>import("./Pages/SuccessPage.jsx"))
+const CancelPage = lazy(()=>import("./Pages/CancelPage.jsx"))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -79,20 +83,35 @@ const router = createBrowserRouter([
         path: "/orders",
         element: withSuspense(Orders),
       },
+      {
+        path : "/success",
+        element : withSuspense(SuccessPage)
+      },{
+        path  : "/cancel",
+        element : withSuspense(CancelPage)
+      }
     ],
   },
   {
     path: "/admin/dashboard",
-    element: withSuspense(AdminDashboard),
+    element: withSuspense(AdminAppLayout),
     children: [
       {
         path: "add",
         element: withSuspense(AdminDashboardAddItems),
       },
       {
+        path : "",
+        element : withSuspense(AdminDashboard)
+      },
+      {
         path: "list-items",
         element: withSuspense(AdminListItems),
       },
+      {
+        path : "orders",
+        element : withSuspense(AdminOrders)
+      }
     ],
   },
 ]);

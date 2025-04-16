@@ -25,12 +25,17 @@ const AdminSidebar = () => {
               </div>
             </li>
             </NavLink>
+
+            <NavLink  className={({isActive})=>isActive ? "bg-blue-400 transition-all duration-200 admin-dashboard-list" : "admin-dashboard-list"} to="/admin/dashboard/orders"   >
             <li className="admin-dashboard-list">
               <div className="admin-item">
                 <BsListCheck className="text-2xl " />
                 <span className="hidden md:block">Orders</span>
               </div>
             </li>
+            </NavLink>
+            
+            
           </ul>
         </div>
   )

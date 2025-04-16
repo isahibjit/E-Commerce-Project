@@ -147,55 +147,54 @@ const Navbar = () => {
             </Link>
           )}
           <div className="dropdown dropdown-end">
-            <div
-              tabIndex="0"
-              role="button"
-              className="btn hover:bg-pink-300 p-2 text-black btn-ghost border-0 rounded-lg"
-            >
-              <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {" "}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  ></path>{" "}
-                </svg>
-                <span className="badge badge-sm bg-black text-white indicator-item">
-                  {cartItems.length}
-                </span>
-              </div>
-            </div>
-            <div
-              tabIndex="0"
-              className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
-            >
-              <div className="card-body">
-              <span className="text-lg  font-bold mx-auto">
-                  {cartItems.length} Items
-                </span>
-                  <div className="card-actions text-xl mx-auto">
-                  <span className="text-info ">
-                  Subtotal:₹ {getSubTotalPrice()}
-                </span>
-                  </div>
-                  <div className="card-actions mx-auto ">
-                    <a href="/cart">
-                    <button className=" bg-yellow-400 px-4 py-2 text-2xl cursor-pointer rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2  btn-block cursor-pointer transition-colors duration-200 btn-block">
-                      View Cart
-                    </button>
-                    </a>
-                  </div>
-                </div>
-            </div>
-          </div>
+  <div
+    tabIndex="0"
+    role="button"
+    className="btn btn-ghost hover:bg-pink-300 p-2 rounded-lg border-0"
+  >
+    <div className="indicator">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6 text-black"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+        />
+      </svg>
+      <span className="badge badge-sm bg-black text-white indicator-item">
+        {cartItems.length}
+      </span>
+    </div>
+  </div>
+
+  <div
+    tabIndex="0"
+    className="dropdown-content z-10 mt-3 w-64 rounded-lg shadow-lg bg-white"
+  >
+    <div className="p-4 space-y-4">
+      <span className="text-lg font-semibold block text-center">
+        {cartItems.length} Items
+      </span>
+      <div className="text-center text-xl text-blue-600">
+        Subtotal: ₹{getSubTotalPrice()}
+      </div>
+      <div className="flex justify-center">
+        <a href="/cart" className="w-full">
+          <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black text-lg font-medium py-2 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2">
+            View Cart
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
           <span
             onClick={() => sethamburgerClicked(true)}
             className="cursor-pointer  lg:hidden block hover:bg-pink-300 p-2 rounded-lg transition-all duration-200"

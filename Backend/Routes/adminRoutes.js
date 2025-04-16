@@ -1,15 +1,13 @@
 import express from "express"
 import { ensureAdminAuthenticated } from "../Middlewares/ensureAuthenticated.js"
 import { validateUser } from "../Middlewares/validateUser.js"
-import { registerAdmin } from "../Controller/adminController.js"
+import { getAdmin, registerAdmin } from "../Controller/adminController.js"
 import passport from "passport"
 import { restrictAdminLoginRoute } from "../Middlewares/restrictRoute.js"
 import { logout } from "../Middlewares/logout.js"
 const router  = express.Router()
 
-router.get("/dashboard",ensureAdminAuthenticated,(req,res)=>{
-    res.json({message : "Welcome to admin page"})    
-})
+router.get("/dashboard",ensureAdminAuthenticated,getAdmin)
 
 router.post("/register",validateUser,registerAdmin)
 

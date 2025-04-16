@@ -12,10 +12,15 @@ const Home = () => {
 
   const location = useLocation();
   useEffect(() => {
-    const shouldToast = sessionStorage.getItem("showEmptyCartToast");
-    if (shouldToast === "true") {
+    const shouldToastCart = sessionStorage.getItem("showEmptyCartToast");
+    const shouldToastLogin = sessionStorage.getItem("showNotLoginToast")
+    if (shouldToastCart === "true") {
       toast.info("Your Cart is Empty");
       sessionStorage.removeItem("showEmptyCartToast"); // prevent on reload
+    }
+    if(shouldToastLogin === "true"){
+      toast.info("You're not logged in")
+      sessionStorage.removeItem("showNotLoginToast")
     }
   }, [location.state]);
 

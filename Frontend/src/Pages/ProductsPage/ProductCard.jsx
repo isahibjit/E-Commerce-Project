@@ -9,15 +9,15 @@ const ProductCard = ({product}) => {
             
               <div className="card bg-base-100 w-64 h-[500px] shadow-sm md:my-12 my-4">
                 <figure>
-                  <Link
-                    to={`/product/${product.product_id}/${product.product_name}`}
+                  <a
+                    href={`/product/${product.product_id}/${product.product_name}`}
                   >
                     <img
                       src={`https://res.cloudinary.com/sunnysingh78376/image/upload/v1743870766/${product.product_img_url}`}
                       alt="Shoes"
                       className="hover:scale-120 transition-all duration-200 cursor-pointer"
                     />
-                  </Link>
+                  </a>
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">
@@ -35,13 +35,13 @@ const ProductCard = ({product}) => {
                       </div>
                     </div>
                     <div className="">
-                    <Link
-                    to={`/cart`}
+                    <a
+                    href={`/product/${product.product_id}/${product.product_name}`}
                   >
                       <button className="w-fit px-4 bg-[#ffa41c] hover:bg-[#ff8400] transition-all duration-200 cursor-pointer  py-2 rounded-lg ">
                         Add to Cart
                       </button>
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

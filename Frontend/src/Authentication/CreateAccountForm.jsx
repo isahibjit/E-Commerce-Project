@@ -10,7 +10,7 @@ const CreateAccountForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const onSubmit = async (data) => {
     try {
@@ -18,7 +18,7 @@ const CreateAccountForm = () => {
       const response = await axios.post(
         "http://localhost:3000/api/user/register",
         data,
-        { withCredentials: true }
+        {withCredentials : true}
       );
       console.log(response);
       if (response.status === 201) {

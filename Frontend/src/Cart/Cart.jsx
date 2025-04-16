@@ -5,7 +5,14 @@ import { FaRupeeSign } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 const Cart = () => {
-  const { cartItems,removeFromCart,getTotalPrice,getSubTotalPrice,updateCart,getTotalShippingFees } = useContext(CartContext);
+  const {
+    cartItems,
+    removeFromCart,
+    getTotalPrice,
+    getSubTotalPrice,
+    updateCart,
+    getTotalShippingFees,
+  } = useContext(CartContext);
 
   return (
     <div>
@@ -20,26 +27,31 @@ const Cart = () => {
 
         {/* Conditional Rendering */}
         {cartItems.length === 0 ? (
-          <p className="bg-yellow-200 py-2 px-4 md:text-2xl text-lg font-bold text-center rounded-lg">Your cart is empty!</p>
+          <p className="bg-yellow-200 py-2 px-4 md:text-2xl text-lg font-bold text-center rounded-lg">
+            Your cart is empty!
+          </p>
         ) : (
           cartItems.map((item, index) => (
-            <div 
+            <div
               key={index}
               className="flex gap-5 justify-between items-center  bg-white px-2 py-5 border border-x-0 border-gray-300"
-            > 
+            >
               {/* Product Details */}
-              <div className="flex gap-2 w-1/3">
+              <div className="flex gap-2 md:w-1/3  w-1/2 ">
                 <img
-                  className="rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg "
                   src={`https://res.cloudinary.com/sunnysingh78376/image/upload/w_100,h_100,c_thumb/${item.product_img_urls[0]}`}
                   alt={item.product_name}
                 />
                 <div className="flex flex-col justify-center gap-2">
-                  <h1 className="text-xl text-gray-700 font-semibold">
+                  <h1 className="md:text-xl  text-gray-700 font-semibold">
                     {item.product_name}
                   </h1>
-                  <div className="flex gap-4">
-                    <h1 className="text-lg flex items-center"><FaRupeeSign />{item.product_price}</h1>
+                  <div className="flex space-x-1">
+                    <h1 className="text-lg flex items-center">
+                      <FaRupeeSign />
+                      {item.product_price}
+                    </h1>
                     <span className="bg-gray-200 border-[1px] border-gray-300 py-1 px-3 font-semibold">
                       {item.size}
                     </span>
@@ -48,12 +60,16 @@ const Cart = () => {
               </div>
 
               <div className="flex flex-col w-1/3">
-           
-              <label className="text-gray-600 font-semibold" htmlFor="quantity">Quantity : </label>
+                <label
+                  className="text-gray-600 font-semibold"
+                  htmlFor="quantity"
+                >
+                  Quantity :{" "}
+                </label>
                 <select
                   value={item.quantity}
                   onChange={(e) =>
-                    updateCart(item.product_id,item.size,e.target.value)
+                    updateCart(item.product_id, item.size, e.target.value)
                   }
                   id="Quantity"
                   className="block w-24 appearance-none rounded border border-gray-400 bg-white px-3 py-2 pr-8 text-sm leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
@@ -64,14 +80,18 @@ const Cart = () => {
                     </option>
                   ))}
                 </select>
-              
               </div>
 
               {/* Delete Icon */}
-              <div onClick={()=>{
-                removeFromCart(item.product_id,item.size)
-                {toast.success("Product Removed From Cart !")}
-              }} className="text-4xl cursor-pointer hover:bg-red-400 rounded-lg transition-all duration-200">
+              <div
+                onClick={() => {
+                  removeFromCart(item.product_id, item.size);
+                  {
+                    toast.success("Product Removed From Cart !");
+                  }
+                }}
+                className="md:text-4xl text-2xl cursor-pointer hover:bg-red-400 rounded-lg transition-all duration-200"
+              >
                 <MdDelete />
               </div>
             </div>
@@ -79,40 +99,49 @@ const Cart = () => {
         )}
       </div>
       <div>
-      <div className="flex flex-col items-end">
-          <div className="md:w-[35%]  w-full p-3">
-            
-         <div className="text-2xl gap-4 flex items-center  font-semibold py-5">
-         <h1 className="text-gray-500 ">
-            CART <span className="text-gray-900">TOTALS</span>
-          </h1>
-          <span className="w-13 h-[2px] bg-black"></span>
-         </div>
-          <div className="flex items-center justify-between  p-2 ">
-            <h1>Subtotal</h1>
-            <div className="flex items-center ">
-              <FaRupeeSign />
-              <span>{getSubTotalPrice()}</span>
+        <div className="flex flex-col items-end">
+          <div className="md:w-[35%] w-full p-4 bg-gray-50 shadow-md rounded-lg">
+            {/* Heading */}
+            <div className="text-xl font-semibold text-gray-700 mb-4 border-b pb-2 flex items-center justify-between">
+              <h1 className="text-gray-500">
+                CART <span className="text-gray-900">TOTALS</span>
+              </h1>
             </div>
-          </div>
-          <div className="flex items-center justify-between border border-gray-300 border-x-0 p-2">
-            <h1>Shipping Fee</h1>
-            <div className="flex items-center">
-              <FaRupeeSign />
-              <span>{cartItems.length > 0 ? getTotalShippingFees() : 0}</span>
+
+            {/* Subtotal */}
+            <div className="flex justify-between py-2">
+              <span className="text-gray-600">Subtotal</span>
+              <span className="flex items-center text-gray-800 font-medium">
+                <FaRupeeSign className="mr-1" />
+                {getSubTotalPrice()}
+              </span>
             </div>
-          </div>
-          <div className="flex items-center font-semibold justify-between p-2  ">
-            <h1>Total</h1>
-            <div className="flex items-center">
-              <FaRupeeSign />
-              <span>{getTotalPrice()}</span>
+
+            {/* Shipping Fee */}
+            <div className="flex justify-between py-2 border-y border-gray-300">
+              <span className="text-gray-600">Shipping Fee</span>
+              <span className="flex items-center text-gray-800 font-medium">
+                <FaRupeeSign className="mr-1" />
+                {cartItems.length > 0 ? getTotalShippingFees() : 0}
+              </span>
             </div>
+
+            {/* Total */}
+            <div className="flex justify-between py-2 mt-2">
+              <span className="text-gray-700 font-semibold text-lg">Total</span>
+              <span className="flex items-center text-gray-900 font-bold text-lg">
+                <FaRupeeSign className="mr-1" />
+                {getTotalPrice()}
+              </span>
+            </div>
+
+            {/* Checkout Button */}
+            <Link to="/checkout">
+              <button className="w-full mt-4 bg-black text-white py-2 rounded hover:bg-gray-900 transition duration-200">
+                Proceed to Checkout
+              </button>
+            </Link>
           </div>
-        
-        </div> <Link to="/checkout">
-        <button className="bg-black text-white py-2 px-4 cursor-pointer hover:bg-gray-950  transition-colors duration-200 md:w-32 w-full">Checkout</button>
-        </Link>
         </div>
       </div>
     </div>

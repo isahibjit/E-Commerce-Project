@@ -8,10 +8,12 @@ import { FaAngleDown, FaRupeeSign } from "react-icons/fa";
 import { EasyZoomOnHover } from "easy-magnify";
 import RelatedProducts from "./RelatedProducts";
 import { CartContext } from "../../Contexts/CartContext.jsx";
+import Review from "./Components/Review.jsx";
 
 const ProductPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
+  const [showReviews, setShowReviews] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState();
@@ -52,9 +54,9 @@ const ProductPage = () => {
 
   return (
     <div>
-      <div className="flex md:flex-row flex-col  gap-8 border border-x-0 border-b-0 border-gray-400 py-8">
-        <div className="flex md:flex-row flex-col gap-2 overflow-x-auto md:overflow-visible">
-          <div className="flex md:flex-col flex-row gap-4 ">
+      <div className="flex xl:flex-row flex-col  gap-8 border border-x-0 border-b-0 border-gray-400 py-8">
+        <div className="flex xl:flex-row flex-col-reverse gap-2 overflow-x-auto md:overflow-visible">
+          <div className="flex xl:flex-col flex-row gap-4 ">
             {product.product_img_urls?.map((img, index) => (
               <div
                 key={index}
@@ -111,13 +113,13 @@ const ProductPage = () => {
                 {product.product_price}
               </h1>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               {product.stock_quantity > 0 ? (
                 <div>
                   <label htmlFor="quantity">Quantity : {quantity}</label>
                   <div className="relative z-10 w-25">
                     <select
-                      onClick={(e)=>setQuantity(e.target.value)}
+                      onClick={(e) => setQuantity(e.target.value)}
                       id="Quantity"
                       className="block w-24 appearance-none rounded border border-gray-400 bg-white px-3 py-2 pr-8 text-sm leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
                     >
@@ -147,9 +149,9 @@ const ProductPage = () => {
               </p>
             </div>
             <div>
-              <div className="flex flex-col gap-4 max-w-1/3 ">
+              <div className="flex flex-col gap-4 md:w-2/3 w-full  ">
                 <label htmlFor="size">Select Size</label>
-                <div className="flex flex-wrap justify-between w-full ">
+                <div className=" grid grid-cols-4 items-center ">
                   {sizes.map((sizeOption, index) => (
                     <input
                       key={index}
@@ -158,27 +160,32 @@ const ProductPage = () => {
                       className="btn w-fit rounded-md bg-gray-500 border-none text-white checked:bg-pink-400 focus:ring focus:ring-pink-400"
                       value={sizeOption}
                       aria-label={sizeOption}
-                      checked = {size === sizeOption}
-                      onChange={()=>setSize(sizeOption)}
+                      checked={size === sizeOption}
+                      onChange={() => setSize(sizeOption)}
                     />
                   ))}
                 </div>
                 <div>
-                {product.stock_quantity > 0 ? (
-                  <button onClick={()=>{
-                    if(size){
-                      addToCart(product,size,quantity)
-                      
-                      navigate("/cart")
-                    }
-                    else{
-                      toast.info("Select the Size please")
-                    }
-                  } } className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer">
-                    ADD TO CART
-                  </button>
-                ) : <button className="  bg-[#fd6a60] hover:bg-[#ec4747e7] rounded-lg font-semibold px-8 py-3 cursor-not-allowed">Out of Stock</button>}
-                  
+                  {product.stock_quantity > 0 ? (
+                    <button
+                      onClick={() => {
+                        if (size) {
+                          addToCart(product, size, quantity);
+
+                          navigate("/cart");
+                        } else {
+                          toast.info("Select the Size please");
+                        }
+                      }}
+                      className="bg-[#ffa41c] hover:bg-[#ff8400] rounded-lg font-semibold px-8 py-3 cursor-pointer"
+                    >
+                      ADD TO CART
+                    </button>
+                  ) : (
+                    <button className="  bg-[#fd6a60] hover:bg-[#ec4747e7] rounded-lg font-semibold px-8 py-3 cursor-not-allowed">
+                      Out of Stock
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -187,27 +194,38 @@ const ProductPage = () => {
       </div>
       <div>
         <div className="flex  ">
-          <div className="border border-gray-300 border-b-0 font-semibold w-32 p-2">
-            <h1 className="text-xl">Description</h1>
-          </div>
-          <div className="border  border-gray-300 border-b-0 border-l-0 p-2 w-32">
-            <h1 className="text-xl text-center">Reviews</h1>
+          <div className="flex cursor-pointer">
+            <div
+              onClick={() => setShowReviews(false)}
+              className={`border border-gray-300 border-b-0 font-semibold w-32 p-2 text-xl text-center ${
+                !showReviews
+                  ? "bg-white text-black"
+                  : "bg-gray-100 text-gray-500"
+              }`}
+            >
+              Description
+            </div>
+            <div
+              onClick={() => setShowReviews(true)}
+              className={`border border-gray-300 border-b-0 border-l-0 font-semibold w-32 p-2 text-xl text-center ${
+                showReviews
+                  ? "bg-white text-black"
+                  : "bg-gray-100 text-gray-500"
+              }`}
+            >
+              Reviews
+            </div>
           </div>
         </div>
-        <div className="border border-gray-300 ">
-          <p className="text-sm p-4 ">
-            An e-commerce website is an online platform that facilitates the
-            buying and selling of products or services over the internet. It
-            serves as a virtual marketplace where businesses and individuals can
-            showcase their products, interact with customers, and conduct
-            transactions without the need for a physical presence. E-commerce
-            websites have gained immense popularity due to their convenience,
-            accessibility, and the global reach they offer. E-commerce websites
-            typically display products or services along with detailed
-            descriptions, images, prices, and any available variations (e.g.,
-            sizes, colors). Each product usually has its own dedicated page with
-            relevant information.
-          </p>
+        <div className="border border-gray-300 p-4 transition-all duration-300 ease-in-out">
+          {showReviews ? (
+            <Review productId={product.product_id}/>
+          ) : (
+            <p className="text-sm text-gray-700">
+              An e-commerce website is an online platform that facilitates the
+              buying and selling of products or services over the internet...
+            </p>
+          )}
         </div>
       </div>
       <div>

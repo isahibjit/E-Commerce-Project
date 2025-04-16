@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 const Ratings = () => {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
 
   const handleRating = (index) => {
-    setRating(index + 1);
+    setRating(prevRating=>prevRating+index);
+    console.log("I got clicked")
   };
-
+  console.log(rating)
   return (
     <div className="flex space-x-2">
       {[...Array(5)].map((_, index) => (

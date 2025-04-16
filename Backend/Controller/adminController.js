@@ -1,6 +1,6 @@
 import db from "../Config/db.js"
 import bcrypt from "bcrypt"
-import { registerAdminService } from "../Services/adminAuthService.js"
+import { getAdminService, registerAdminService } from "../Services/adminAuthService.js"
 import "../Config/passport.js"
 export const registerAdmin = async (req, res) => {
     try {
@@ -26,3 +26,23 @@ export const registerAdmin = async (req, res) => {
         res.status(500).json({error :"Internal Server Error : "+error.message})
     }
 }
+
+export const getAdmin = async (req, res) => {
+    try {
+        const userId = req.user.id
+        const response = await getAdminService(userId)
+        if (response) {
+            res.status(200).json({
+                message: "Admin Found",
+                admin: response
+            })
+        } else {
+            res.status(404).json({
+                message: "Admin Not Found"
+            })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error : " + error.message })
+    }
+}
+
