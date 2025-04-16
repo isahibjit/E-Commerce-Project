@@ -1,7 +1,3 @@
-Here's a professional and well-structured `README.md` for your **Extrobuy** full-stack project built with the **PERN stack** (PostgreSQL, Express.js, React, Node.js):
-
----
-
 # 🛍️ Extrobuy
 
 Extrobuy is a full-stack e-commerce web application built using the **PERN stack** (PostgreSQL, Express.js, React, Node.js). This platform allows users to browse, search, and purchase a variety of **clothing products** online. It offers a clean UI, secure backend, and seamless user experience tailored for fashion enthusiasts.
@@ -148,4 +144,3 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-Let me know if you'd like this in plain text or Markdown file format, or if you want to include live demo links, deployment instructions, or screenshots!
