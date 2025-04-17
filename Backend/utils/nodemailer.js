@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer"
 
 export const sendResetEmail = async (email, resetLink) => {
-    const html = `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -64,32 +64,32 @@ export const sendResetEmail = async (email, resetLink) => {
 </body>
 </html>
 `
-    try {
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS,
-            },
-        })
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    })
 
-        const mailOptions = {
-            from: `Extrobuy <${process.env.GMAIL_USER}>`,
-            to: email,
-            subject: "🔒 Reset Your Password !",
-            html: html,
-        }
-        const info = await transporter.sendMail(mailOptions)
-        return info.response
-    } catch (error) {
-        console.log("error", error)
-        throw error
+    const mailOptions = {
+      from: `Extrobuy <${process.env.GMAIL_USER}>`,
+      to: email,
+      subject: "🔒 Reset Your Password !",
+      html: html,
     }
+    const info = await transporter.sendMail(mailOptions)
+    return info.response
+  } catch (error) {
+    console.log("error", error)
+    throw error
+  }
 }
 
 export const sendRegisteredUser = async (email, name) => {
-    try {
-        const html = `<!DOCTYPE html>
+  try {
+    const html = `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -153,22 +153,124 @@ export const sendRegisteredUser = async (email, name) => {
 </html>
 
 `
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS
-            }
-        })
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+      }
+    })
 
-        const mailOptions = {
-            from: `Extrobuy <${process.env.GMAIL_USER}>`,
-            to: email,
-            subject: "Welcome to ExtroBuy!",
-            html: html
-        }
-        return await transporter.sendMail(mailOptions)
-    } catch (error) {
-        throw error
+    const mailOptions = {
+      from: `Extrobuy <${process.env.GMAIL_USER}>`,
+      to: email,
+      subject: "Welcome to ExtroBuy!",
+      html: html
     }
+    return await transporter.sendMail(mailOptions)
+  } catch (error) {
+    throw error
+  }
 }
+
+
+
+export const sendOrderConfirmationEmail = async (email, name, order) => {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmation</title>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #4CAF50;
+    }
+    .order-details {
+      margin-top: 20px;
+    }
+    .order-details table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .order-details th, .order-details td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Hey ${name}, your order has been placed successfully! 🎉</h2>
+    <p>Thank you for shopping with ExtroBuy. Below are your order details:</p>
+
+    <div class="order-details">
+      <table>
+        <tr><th>Order ID:</th><td>${order.order_id}</td></tr>
+        <tr><th>Name:</th><td>${order.first_name} ${order.last_name}</td></tr>
+        <tr><th>Shipping Address:</th><td>${order.street}, ${order.city}, ${order.state} - ${order.pincode}, ${order.country}</td></tr>
+        <tr><th>Email:</th><td>${order.email}</td></tr>
+        <tr><th>Phone:</th><td>${order.phone}</td></tr>
+        <tr><th>Payment Method:</th><td>${order.payment_method}</td></tr>
+        <tr><th>Payment Status:</th><td>${order.payment_status}</td></tr>
+        <tr><th>Order Status:</th><td>${order.order_status}</td></tr>
+        <tr><th>Subtotal:</th><td>₹${order.subtotal}</td></tr>
+        <tr><th>Shipping Fee:</th><td>₹${order.shipping_fee}</td></tr>
+        <tr><th>Total:</th><td><strong>₹${order.total_amount}</strong></td></tr>
+        <tr><th>Order Date:</th><td>${new Date(order.created_at).toLocaleString()}</td></tr>
+      </table>
+    </div>
+
+    <p style="margin-top: 20px;">We’ll notify you once your order is on its way. 🚚</p>
+
+    <div class="footer">
+      If you have any questions, reply to this email or <a href="http://localhost:5173/contact">contact us here</a>.<br/>
+      — Team ExtroBuy
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: `ExtroBuy <${process.env.GMAIL_USER}>`,
+      to: email,
+      subject: "🛍️ Your ExtroBuy Order Has Been Placed!",
+      html: html,
+    };
+
+    return await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Order confirmation email error:", error);
+    throw error;
+  }
+};

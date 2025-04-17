@@ -1,4 +1,5 @@
 import db from "../Config/db.js";
+import { sendOrderConfirmationEmail } from "../utils/nodemailer.js";
 
 export const addOrdersService = async (userData, cartData, paymentInfo, sessionId, userId) => {
     const {
@@ -15,7 +16,7 @@ export const addOrdersService = async (userData, cartData, paymentInfo, sessionI
     } = userData;
 
     const { totalAmount, totalShippingFee } = paymentInfo;
-    const paymentStatus = paymentMode === 'stripe' ? 'Paid' : 'Pending';
+    const paymentStatus = paymentMode === 'STRIPE' ? 'Paid' : 'Pending';
     const subtotal = totalAmount - totalShippingFee;
 
     try {
@@ -47,7 +48,7 @@ export const addOrdersService = async (userData, cartData, paymentInfo, sessionI
                 subtotal, shipping_fee, total_amount
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,
                       $10, $11, $12, $13, $14, $15, $16, $17)
-            RETURNING order_id
+            RETURNING *
         `;
 
         const orderValues = [
@@ -57,6 +58,10 @@ export const addOrdersService = async (userData, cartData, paymentInfo, sessionI
         ];
 
         const orderResult = await db.query(orderQuery, orderValues);
+        
+        const order = orderResult.rows[0];
+        await sendOrderConfirmationEmail(order.email, order.first_name, order);
+
         const orderId = orderResult.rows[0].order_id;
 
         // ➕ Insert order items
@@ -143,7 +148,7 @@ export const getOrdersService = async (userId) => {
         };
     }
 };
-export const getOrdersByUserIdService = async (userId, page, limit=12) => {
+export const getOrdersByUserIdService = async (userId, page, limit = 12) => {
     const offset = (page - 1) * 12;
 
     try {
@@ -190,7 +195,7 @@ export const getOrdersByUserIdService = async (userId, page, limit=12) => {
 export const updateOrderService = async (orderId, orderStatus) => {
     try {
         const result = await db.query("UPDATE orders SET order_status = $1 WHERE order_id = $2 RETURNING order_id", [orderStatus, orderId]);
-        console.log("result",result.rows[0])
+        console.log("result", result.rows[0])
         if (result.rowCount > 0) {
             return {
                 success: true,
