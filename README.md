@@ -44,22 +44,50 @@ Extrobuy is a full-stack e-commerce web application built using the **PERN stack
 ## 📁 Project Structure
 
 ```
-extrobuy/
-├── client/             # React frontend
+EXTROBUY/
+├── Backend/                    # Express.js backend
+│   ├── Config/                 # Configuration files (DB, etc.)
+│   ├── Controller/             # Route controllers
+│   ├── Middlewares/           # Express middlewares
+│   ├── Routes/                 # API route definitions
+│   ├── Services/               # Business logic layer
+│   ├── Stripe/                 # Stripe payment integration
+│   ├── Utils/                  # Utility/helper functions
+│   ├── node_modules/
+│   ├── .env                    # Environment variables for backend
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js               # Entry point of backend server
+│
+├── Frontend/                   # React frontend
 │   ├── public/
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       └── App.js
-├── server/             # Express backend
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   └── index.js
-├── database/           # SQL setup and config
-│   └── schema.sql
-├── README.md
-└── package.json
+│   ├── src/
+│   │   ├── Admin/              # Admin panel components
+│   │   ├── AppLayout/          # Layout components for pages
+│   │   ├── assets/             # Static assets (images, etc.)
+│   │   ├── Authentication/     # Login, Signup etc.
+│   │   ├── Authentications/    # Possibly advanced auth utils
+│   │   ├── Cart/               # Cart features
+│   │   ├── Contexts/           # React contexts for state management
+│   │   ├── Layouts/            # Shared layout components
+│   │   ├── Orders/             # Orders management
+│   │   ├── Pages/              # Different page components
+│   │   ├── utils/              # Frontend utility functions
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   ├── index.html
+│   │   └── main.jsx            # React root render
+│   ├── .env                    # Environment variables for frontend
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+│
+├── .gitignore
+├── README.md                   # Project documentation
+
 ```
 
 ---
