@@ -1,194 +1,108 @@
-import React from 'react';
+import React from "react";
+
 const Contact = () => {
+  return (
+    <div className=" py-8 px-4 sm:px-6 lg:px-8 min-h-[65vh] border border-x-0 border-b-0 border-gray-400 bg">
+      <div className="max-w-7xl mx-auto text-center">
+      <div className="flex items-center justify-center mb-8">
+          <h1 className="font-semibold  roboto-regular text-gray-500 text-2xl  ">
+            CONTACT <span className="text-gray-800 font-semibold"> US</span>
+          </h1>
+          <span className="w-13 h-[2px] bg-gray-900"></span>
+        </div>
+        <p className="text-xl text-gray-600 mb-12">
+          We're here to assist you with any questions or concerns!
+        </p>
 
-  
-    return (
-      <div className="font-sans text-gray-800">
-        <header className="max-w-4xl mx-auto p-6 text-center">
-          <h1 className="text-4xl font-bold mb-4">Hi 👋, I'm Sahibjit Singh</h1>
-          <img
-            src="https://gifdb.com/images/high/coding-penguin-i-like-pressing-buttons-puv3coc5z4pkth51.webp"
-            alt="Coding Penguin Illustration"
-            className="float-right ml-6 mb-6 w-96 max-w-full"
-          />
-          <p className="text-xl">
-            I’m interested in software development, web technologies, and exploring new programming languages.
-          </p>
-        </header>
-  
-        <section className="max-w-4xl mx-auto p-6">
-          <h2 className="text-2xl font-semibold mb-4">About Me</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>
-              <strong>Learning:</strong> Currently mastering the <em>PERN Stack</em>
-            </li>
-            <li>
-              <strong>Contact:</strong>{' '}
-              <a
-                href="mailto:sahibjitsinghramgharia@gmail.com"
-                className="text-blue-500 hover:underline"
+        {/* Contact Information Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Visit Us */}
+          <div className="flex flex-col items-center justify-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
+            <div className="mb-4">
+              <svg
+                className="w-12 h-12 text-blue-600"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
               >
-                sahibjitsinghramgharia@gmail.com
-              </a>
-            </li>
-            <li>
-              <strong>Fun Fact:</strong> I can speak multiple languages fluently, including English with a strong American accent, which surprises a lot of people!
-            </li>
-          </ul>
-        </section>
-  
-        <section className="max-w-4xl mx-auto p-6">
-          <h2 className="text-2xl font-semibold mb-4">Connect with Me</h2>
-          <div className="flex justify-center space-x-4">
-            <a
-              href="https://linkedin.com/in/sahibjit-singh748"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
-                alt="LinkedIn Profile"
-                className="h-8 w-auto"
-              />
-            </a>
-            <a
-              href="https://instagram.com/liljat46"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
-                alt="Instagram Profile"
-                className="h-8 w-auto"
-              />
-            </a>
+                <path d="M2 3a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V3zm3 2v12h12V5H5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Visit Us
+            </h3>
+            <p className="text-gray-600">Amritsar, Punjab, India</p>
           </div>
-        </section>
-  
-        <section className="max-w-4xl mx-auto p-6">
-          <h2 className="text-2xl font-semibold mb-4">Languages and Tools</h2>
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <a href="https://angular.io" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://angular.io/assets/images/logos/angular/angular.svg"
-                alt="Angular"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://angular.io" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original-wordmark.svg"
-                alt="AngularJS"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.arduino.cc/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://cdn.worldvectorlogo.com/logos/arduino-1.svg"
-                alt="Arduino"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.cprogramming.com/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg"
-                alt="C Language"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg"
-                alt="C++"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg"
-                alt="CSS3"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://cdn.worldvectorlogo.com/logos/django.svg"
-                alt="Django"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.w3.org/html/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg"
-                alt="HTML5"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.java.com" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg"
-                alt="Java"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg"
-                alt="JavaScript"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://kotlinlang.org" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://www.vectorlogo.zone/logos/kotlinlang/kotlinlang-icon.svg"
-                alt="Kotlin"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg"
-                alt="Node.js"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.python.org" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg"
-                alt="Python"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg"
-                alt="React"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg"
-                alt="Tailwind CSS"
-                className="h-10 w-10"
-              />
-            </a>
-            <a href="https://www.postgresql.org" target="_blank" rel="noopener noreferrer">
-              <img
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg"
-                alt="PostgreSQL"
-                className="h-10 w-10"
-              />
-            </a>
-          </div>
-        </section>
-  
-        <footer className="max-w-4xl mx-auto p-6 text-center">
-          <p>&copy; 2025 Sahibjit Singh. All rights reserved.</p>
-        </footer>
-      </div>
-    );
-  };
-  
-  export default Contact;
 
+          {/* Email Us */}
+          <div className="flex flex-col items-center justify-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
+            <div className="mb-4">
+              <svg
+                className="w-12 h-12 text-blue-600"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <path d="M2 3a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V3zm3 2v12h12V5H5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Email Us
+            </h3>
+            <a
+              href="mailto:sahibjitsinghramghria@gmail.com"
+              className="text-blue-600 hover:underline"
+            >
+              sahibjitsinghramghria@gmail.com
+            </a>
+          </div>
+
+          {/* Call Us */}
+          <div className="flex flex-col items-center justify-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
+            <div className="mb-4">
+              <svg
+                className="w-12 h-12 text-blue-600"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <path d="M2 3a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V3zm3 2v12h12V5H5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Call Us
+            </h3>
+            <p className="text-gray-600">+91 7837659473</p>
+          </div>
+        </div>
+
+        {/* Social Media Section */}
+        <div className="mt-12 flex justify-center space-x-8">
+          <a href="https://linkedin.com/in/sahibjit-singh748" target="blank">
+            <img
+              align="center"
+              src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+              alt="sahibjit-singh748"
+              height="30"
+              width="40"
+            />
+          </a>
+          <a href="https://instagram.com/liljat46" target="blank">
+            <img
+              align="center"
+              src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
+              alt="liljat46"
+              height="30"
+              width="40"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;

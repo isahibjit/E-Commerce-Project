@@ -26,6 +26,7 @@ const  ResetPassword = lazy(()=> import( "./Authentications/ResetPassword.jsx"))
 const  Orders = lazy(()=> import( "./Orders/Orders.jsx"))
 const SuccessPage = lazy(()=>import("./Pages/SuccessPage.jsx"))
 const CancelPage = lazy(()=>import("./Pages/CancelPage.jsx"))
+const NotFound = lazy(()=>import("./Pages/NotFound.jsx"))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: withSuspense(Home),
+      },
+      {
+        path : "*",
+        element : withSuspense(NotFound)
       },
       {
         path: "/about",
@@ -103,6 +108,10 @@ const router = createBrowserRouter([
       {
         path : "",
         element : withSuspense(AdminDashboard)
+      },
+      {
+        path : "*",
+        element : withSuspense(NotFound)
       },
       {
         path: "list-items",
