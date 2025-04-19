@@ -16,13 +16,22 @@ const db = new Pool({
 });
 
 async function initDb() {
-  const client = await db.connect(); 
+  const client = await db.connect();
   try {
     // Set the schema explicitly after connecting
     await client.query('SET search_path TO public;');
-    
+
     // Your other queries go here, for example:
-    await client.query('CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT);'); 
+    await client.query('CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT);');
+    
+    // Create session table for express-session if it doesn't exist
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS session (
+        sid VARCHAR PRIMARY KEY,
+        sess JSONB NOT NULL,
+        expire TIMESTAMP WITHOUT TIME ZONE NOT NULL
+      );
+    `);
   } catch (err) {
     console.error('Error during DB initialization:', err);
   } finally {
