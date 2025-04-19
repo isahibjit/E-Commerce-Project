@@ -51,7 +51,7 @@ app.use(
     },
   })
 );
-
+app.set('trust proxy', 1); // trust first proxy (Render uses a reverse proxy)
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/admin", adminRoutes);
