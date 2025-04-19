@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const ResetPassword = () => {
   const {
     register,
@@ -26,7 +26,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/reset-password",
+        `${BACKEND_API}api/user/reset-password`,
         {
           password: data.password,
           token: token,

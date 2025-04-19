@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import adminLogo from "../../../assets/adminLogo.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminHeader = ({ admin }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false)
@@ -10,7 +11,7 @@ const AdminHeader = ({ admin }) => {
     try {
       setIsLoading(true)
       const response = await axios.get(
-        "http://localhost:3000/api/admin/logout",
+        `${BACKEND_API}api/admin/logout`,
         { withCredentials: true }
       );
       if (response.status === 200) {

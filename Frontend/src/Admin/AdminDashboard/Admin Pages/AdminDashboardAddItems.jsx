@@ -7,6 +7,7 @@ import sizes from "../DashboardComponents/Sizes";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Loading from "../DashboardComponents/Loading";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminDashboardAddItems = () => {
   const {
     register,
@@ -28,7 +29,7 @@ const AdminDashboardAddItems = () => {
         return;
       }
       const response = await axios.post(
-        "http://localhost:3000/api/product/add",
+        `${BACKEND_API}api/product/add`,
         data,
         { withCredentials: true }
       );
@@ -42,7 +43,7 @@ const AdminDashboardAddItems = () => {
         formData.append("productId", productId);
         try {
           const response = await axios.post(
-            "http://localhost:3000/api/product/upload-images",
+            `${BACKEND_API}api/product/upload-images`,
             formData,
             {
               headers: { "Content-Type": "multipart/form-data" },

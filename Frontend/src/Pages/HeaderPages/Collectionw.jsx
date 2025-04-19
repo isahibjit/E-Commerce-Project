@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 import ProductCard from "../../Admin/ProductsPage/ProductCard";
 import SortCollection from "./CollectionAdmin/SortCollection";
 import FilterCollection from "./CollectionAdmin/FilterCollection";
@@ -15,7 +15,7 @@ const Collection = () => {
   });
 
   const fetchProducts = async ({ pageParam = 1 }) => {
-    const url = new URL("http://localhost:3000/api/product/filter");
+    const url = new URL(`${BACKEND_API}api/product/filter`);
     queries.types.forEach((type) => url.searchParams.append("type[]", type));
     queries.categories.forEach((cat) =>
       url.searchParams.append("category[]", cat)

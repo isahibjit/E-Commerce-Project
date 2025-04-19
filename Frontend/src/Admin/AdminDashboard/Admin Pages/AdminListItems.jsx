@@ -9,7 +9,7 @@ import "ldrs/react/Grid.css";
 import DeleteConfirmationModal from "../DashboardComponents/DeleteConfirmationModal";
 import AdminProductUpdateModal from "../DashboardComponents/AdminProductUpdateModal";
 import AdminListItemsSkeletons from "./Components/AdminListItemsSkeleton";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminListItems = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -20,7 +20,7 @@ const AdminListItems = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/product/admin/product-lists",
+        `${BACKEND_API}api/product/admin/product-lists`,
         { withCredentials: true }
       );
       if (response.status === 200) {
@@ -44,7 +44,7 @@ const AdminListItems = () => {
     console.log("Clicked Id ", productId);
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/product/${productId}`,
+        `${BACKEND_API}api/product/${productId}`,
         { withCredentials: true }
       );
       console.log(response);

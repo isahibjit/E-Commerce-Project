@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import sizes from "./Sizes";
 import { toast } from "react-toastify";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminProductUpdateModal = ({
   isEditModalOpen,
   onCancel,
@@ -23,7 +23,7 @@ const AdminProductUpdateModal = ({
     try {
       console.log(data);
         const response = await axios.put(
-          `http://localhost:3000/api/product/update/${product.product_id}`,
+          `${BACKEND_API}api/product/update/${product.product_id}`,
           data,
           { withCredentials: true }
         );

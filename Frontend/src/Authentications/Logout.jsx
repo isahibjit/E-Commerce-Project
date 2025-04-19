@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const Logout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const handleLogout = async () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "http://localhost:3000/api/admin/logout",
+        `${BACKEND_API}api/admin/logout`,
         { withCredentials: true }
       );
       if (response.status === 200) {

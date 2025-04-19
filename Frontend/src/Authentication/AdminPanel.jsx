@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { NavLink, Router, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminPanel = () => {
   const {
     register,
@@ -15,7 +16,7 @@ const AdminPanel = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/admin/login",
+        `${BACKEND_API}api/admin/login`,
         data,{withCredentials : true}
       );
       if (response.status === 200) {

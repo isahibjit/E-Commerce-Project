@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const CreateAccountForm = () => {
   const {
     register,
@@ -16,7 +17,7 @@ const CreateAccountForm = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/user/register",
+        `${BACKEND_API}api/user/register`,
         data,
         {withCredentials : true}
       );

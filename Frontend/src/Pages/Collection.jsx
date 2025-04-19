@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import stopImg from "./../assets/stop.png";
 import ProductCard from "./ProductsPage/ProductCard";
@@ -10,7 +10,7 @@ import debounce from "lodash.debounce";
 import ProductCardSkeleton from "./ProductsPage/Components/ProductCardSkeleton";
 import { SearchContext } from "../Contexts/SearchContext";
 import SearchBar from "./ProductsPage/Components/SearchBar";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 bouncy.register();
 
 const Collection = () => {
@@ -18,19 +18,19 @@ const Collection = () => {
     categories: [],
     types: [],
     sort: "default",
-    searchQuery : "",
+    searchQuery: "",
   });
-  const {showSearch} = useContext(SearchContext)
+  const { showSearch } = useContext(SearchContext);
   const [filterClicked, setFilterClicked] = useState(false);
   const fetchProducts = async ({ pageParam = 1 }) => {
-    const url = new URL("http://localhost:3000/api/product/filter");
+    const url = new URL(`${BACKEND_API}api/product/filter`);
     queries.types.forEach((type) => url.searchParams.append("type[]", type));
     queries.categories.forEach((category) =>
       url.searchParams.append("category[]", category)
     );
     url.searchParams.append("sort", queries.sort);
     url.searchParams.append("_page", pageParam);
-    url.searchParams.append("searchQuery",queries.searchQuery)
+    url.searchParams.append("searchQuery", queries.searchQuery);
     const response = await axios.get(url.toString(), {
       withCredentials: true,
     });
@@ -72,9 +72,11 @@ const Collection = () => {
   const debouncedSetQueries = debounce((updater) => {
     setQueries(updater);
   }, 200);
-  const debouncedSetSearchQuery = debounce((updater) => {
-    setQueries(updater);
-  }, 500);
+  const debouncedSetSearchQuery = useMemo(() =>
+    debounce((updater) => {
+      setQueries(updater);
+    }, 500)
+  );
   useEffect(() => {
     // Scroll to top only if user reloads from bottom
     if (
@@ -109,20 +111,18 @@ const Collection = () => {
       sort: sort === prev.sort ? "default" : sort,
     }));
   };
-  const handleSearchChange = (e)=>{
-    debouncedSetSearchQuery((prev)=> ({
+  const handleSearchChange = (e) => {
+    debouncedSetSearchQuery((prev) => ({
       ...prev,
-      searchQuery : e.target.value
-    }))
-}
+      searchQuery: e.target.value,
+    }));
+  };
   const products = data?.pages?.flatMap((page) => page.data) || [];
 
   return (
     <div className=" border border-x-0 border-b-0 border-gray-300">
       {/* search form  */}
-      {showSearch &&(
-        <SearchBar handleSearchChange={handleSearchChange} />
-      )}
+      {showSearch && <SearchBar handleSearchChange={handleSearchChange} />}
       <div className="flex md:flex-row flex-col gap-8  ">
         <FilterCollection
           handleCharacterChange={handleCharacterChange}

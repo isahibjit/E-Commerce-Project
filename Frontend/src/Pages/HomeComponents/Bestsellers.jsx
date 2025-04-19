@@ -8,12 +8,13 @@ import ProductCardSkeleton from "../ProductsPage/Components/ProductCardSkeleton"
 const Bestsellers = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost:3000/api/product/?bestseller= true",
+          `${BACKEND_API}api/product/?bestseller=true`,
           { withCredentials: true }
         );
         if (response.status === 200) {

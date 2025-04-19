@@ -18,7 +18,7 @@ const Review = ({ productId }) => {
       try {
         setIsReviewLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/api/reviews/${productId}`,
+          `${BACKEND_API}api/reviews/${productId}`,
           {
             withCredentials: true,
           }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const RelatedProducts = ({ category, type, productId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [page, setPage] = useState(0);
@@ -10,7 +10,7 @@ const RelatedProducts = ({ category, type, productId }) => {
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       try {
-        const url = new URL("http://localhost:3000/api/product/filter");
+        const url = new URL(`${BACKEND_API}api/product/filter`);
         url.searchParams.append("category[]", category);
         url.searchParams.append("type[]", type);
         url.searchParams.append("_page", page);

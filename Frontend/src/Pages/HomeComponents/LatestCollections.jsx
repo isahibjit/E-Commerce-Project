@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ProductCard from "../ProductsPage/ProductCard";
 import { set } from "react-hook-form";
 import ProductCardSkeleton from "../ProductsPage/Components/ProductCardSkeleton";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const LatestCollections = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,7 @@ const LatestCollections = () => {
     (async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("http://localhost:3000/api/product", {
+        const response = await axios.get(`${BACKEND_API}api/product`, {
           withCredentials: true,
         });
         if (response.status === 200) {

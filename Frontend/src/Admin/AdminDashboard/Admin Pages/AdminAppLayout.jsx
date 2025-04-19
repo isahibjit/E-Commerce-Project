@@ -11,7 +11,7 @@ import AdminNotAuthorize from "../Admin Pages/AdminNotAuthorize";
 import { toast } from "react-toastify";
 import { Trefoil } from 'ldrs/react'
 import 'ldrs/react/Trefoil.css'
-
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const AdminDashboard = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/admin/dashboard",
+          `${BACKEND_API}api/admin/dashboard`,
           { withCredentials: true }
         );
         if (response.status === 200) {

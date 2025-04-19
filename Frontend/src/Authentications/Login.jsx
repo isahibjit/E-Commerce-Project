@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { NavLink, Router, useNavigate } from "react-router-dom";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 const Login = () => {
   const [loading, setLoading] = useState(false)
   const {
@@ -14,7 +15,7 @@ const Login = () => {
     try {
       setLoading(true)
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        `${BACKEND_API}api/user/login`,
         data,
         { withCredentials: true }
       );
