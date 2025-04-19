@@ -53,7 +53,7 @@ EXTROBUY/
 │   ├── Services/               # Business logic layer
 │   ├── Stripe/                 # Stripe payment integration
 │   ├── Utils/                  # Utility/helper functions
-│   ├── node_modules/
+│   ├── temp/                   # Make sure you have a temp folder inside public !!!!
 │   ├── .env                    # Environment variables for backend
 │   ├── package.json
 │   ├── package-lock.json
