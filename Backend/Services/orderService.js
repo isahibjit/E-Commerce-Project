@@ -1,5 +1,5 @@
 import db from "../Config/db.js";
-import { sendOrderConfirmationEmail } from "../utils/nodemailer.js";
+import { sendOrderConfirmationEmail, sendOrderUpdateEmail } from "../utils/nodemailer.js";
 
 export const addOrdersService = async (userData, cartData, paymentInfo, sessionId, userId) => {
     const {
@@ -196,9 +196,10 @@ export const getOrdersByUserIdService = async (userId, page, limit = 12) => {
 };
 export const updateOrderService = async (orderId, orderStatus) => {
     try {
-        const result = await db.query("UPDATE orders SET order_status = $1 WHERE order_id = $2 RETURNING order_id", [orderStatus, orderId]);
-        console.log("result", result.rows[0])
+        const result = await db.query("UPDATE orders SET order_status = $1 WHERE order_id = $2 RETURNING *", [orderStatus, orderId]);
         if (result.rowCount > 0) {
+            const order = result.rows[0];
+            await sendOrderUpdateEmail(order)
             return {
                 success: true,
                 message: "Order updated successfully."

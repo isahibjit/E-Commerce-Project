@@ -274,3 +274,103 @@ export const sendOrderConfirmationEmail = async (email, name, order) => {
     throw error;
   }
 };
+
+
+
+
+export const sendOrderUpdateEmail = async (order) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
+  console.log(order.email)
+  const mailOptions = {
+    from: `ExtroBuy <${process.env.GMAIL_USER}>`,
+    to: order.email,
+    subject: `🚨 Order #${order.order_id} Update - Brought to You by Sunny Singh!`,
+    html: `
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>Order Update</title>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+          </style>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: #ffefd5;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffefd5;">
+            <tr>
+              <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #fffbe7; margin: 20px 0; border: 4px dashed #f44336; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.2); overflow: hidden;">
+                  
+                  <!-- Header -->
+                  <tr>
+                    <td style="background-color: #f44336; padding: 30px 40px; text-align: center; color: white; font-family: 'Press Start 2P', cursive;">
+                      <h1 style="margin: 0; font-size: 24px;">📦 EXTROBUY 🚓</h1>
+                      <p style="margin: 10px 0 0; font-size: 14px;">Sunny Singh just checked your order personally!</p>
+                    </td>
+                  </tr>
+
+                  <!-- Body -->
+                  <tr>
+                    <td style="padding: 30px 40px; color: #222;">
+                      <p style="font-size: 18px;">Yo <strong>${order.first_name} ${order.last_name}</strong>! 🕵️‍♂️</p>
+                      <p style="font-size: 16px; line-height: 1.6;">Your order <strong>#${order.order_id}</strong> is now in <span style="color: green;"><strong>${order.order_status}</strong></span> stage!</p>
+
+                      <h3 style="color: #e91e63; margin-top: 25px;">🎯 Mission Details:</h3>
+                      <ul style="font-size: 16px; padding-left: 20px; line-height: 1.8;">
+                        <li><strong>Payment Method:</strong> ${order.payment_method}</li>
+                        <li><strong>Payment Status:</strong> ${order.payment_status}</li>
+                        <li><strong>Subtotal:</strong> ₹${order.subtotal}</li>
+                        <li><strong>Shipping Fee:</strong> ₹${order.shipping_fee}</li>
+                        <li><strong>Total:</strong> ₹${order.total_amount}</li>
+                        <li><strong>Ordered At:</strong> ${new Date(order.created_at).toLocaleString()}</li>
+                      </ul>
+
+                      <h3 style="color: #e91e63; margin-top: 25px;">📬 Delivery HQ:</h3>
+                      <p style="font-size: 16px; line-height: 1.6;">
+                        ${order.street},<br/>
+                        ${order.city}, ${order.state} - ${order.pincode},<br/>
+                        ${order.country}<br/>
+                        📞 ${order.phone}
+                      </p>
+
+                      <div style="text-align: center; margin: 30px 0;">
+                        <a href="http://localhost:5173/orders" style="background-color: #009688; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
+                          🕶 View Your Order Like a Boss
+                        </a>
+                      </div>
+
+                      <p style="font-size: 14px; color: #555;">
+                        Questions? While Sunny Singh is quietly dealing with his depression 💭 and spending time with his imaginary siblings 🧸, our team is here for you 💬—just reply and we’ll be ready to help.
+                      </p>
+                      <p style="font-size: 16px;">Stay cool,<br/>The ExtroBuy Developed By Sahibjit Singh  🎉</p>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background-color: #424242; color: #ddd; text-align: center; padding: 20px; font-size: 12px;">
+                      🚨 ExtroBuy is powered by Sahibjit Singh! ☕ | All Rights Reserved 2025<br/>
+                      <a href="http://localhost:5173/contact" style="color: #ddd; text-decoration: none;">Contact Us</a>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+  };
+
+  try {
+    return await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error('❌ Ryo-san got distracted. Error sending email:', error);
+  }
+};

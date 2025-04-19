@@ -5,6 +5,7 @@ import axios from "axios";
 const OrderCard = ({ order }) => {
   const {
     order_id,
+    email,
     first_name,
     last_name,
     product_names,
@@ -42,6 +43,7 @@ const OrderCard = ({ order }) => {
         `${BACKEND_API}api/orders/updateOrder/${order_id}`,
         {
           order_status: newStatus,
+          user_email : email,
         },
         { withCredentials: true }
       );
