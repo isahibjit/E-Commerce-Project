@@ -8,6 +8,7 @@ import { Grid } from "ldrs/react";
 import "ldrs/react/Grid.css";
 import DeleteConfirmationModal from "../DashboardComponents/DeleteConfirmationModal";
 import AdminProductUpdateModal from "../DashboardComponents/AdminProductUpdateModal";
+import AdminListItemsSkeletons from "./Components/AdminListItemsSkeleton";
 
 const AdminListItems = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -160,11 +161,10 @@ const AdminListItems = () => {
       </div>
     </div>
   ) : (
-    <div className="text-center">
-      <h1 className="md:text-3xl text-gray-600 font-bold animate-pulse">
-        Please Wait While We are fetching the products
-      </h1>
-      <Grid size="300" speed="3.3" color="cyan" />
+    <div>
+      {Array.from({length : 10}).map((_, idx) =>(
+        <AdminListItemsSkeletons />
+      ))}
     </div>
   );
 };

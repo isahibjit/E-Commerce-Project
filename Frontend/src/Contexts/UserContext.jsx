@@ -6,6 +6,8 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [userLoading, setUserLoading] = useState(true); 
+
   useEffect(() => {
     (async () => {
       try {
@@ -14,17 +16,25 @@ export const UserProvider = ({ children }) => {
         });
         if (response.status === 200) {
           setUser(response.data.user);
-        }
-      } catch (error) {
-        if (error.status === 403) {
-          console.log(error.response.data.message);
+        } else {
           setUser({ login: false });
         }
-        console.log(error);
+      } catch (error) {
+        if (error.response?.status === 403) {
+          console.log(error.response.data.message);
+          setUser({ login: false });
+        } else {
+          console.log(error);
+        }
+      } finally {
+        setUserLoading(false); // <-- important
       }
     })();
   }, []);
+
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, userLoading }}>
+      {children}
+    </UserContext.Provider>
   );
 };

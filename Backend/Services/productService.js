@@ -60,7 +60,6 @@ export const addProductsService = async (productData, userId) => {
         } = productData;
         if (typeof size === "string") {
             size = [size]; // Wrap it in an array
-            console.log(size);
         }
         // Corrected: Added $9 placeholder for user_id
         const result = await db.query(
@@ -89,7 +88,6 @@ export const addProductsService = async (productData, userId) => {
         );
 
         if (result.rows.length > 0) {
-            console.log(result.rows[0]);
             return { productId: result.rows[0].product_id };
         }
     } catch (error) {
@@ -100,29 +98,34 @@ export const getProductByIdService = async (productId) => {
     try {
         const result = await db.query(
             `SELECT
-            p.product_id,
-            p.product_name,
-            p.product_category,
-            p.product_description,
-            p.best_seller,
-            p.type,
-            p.size,
-            p.product_price,
-            p.stock_quantity,
-            ARRAY_AGG(pi.product_img_url) AS product_img_urls
-        FROM
-            products p
-        INNER JOIN
-            product_images pi ON p.product_id = pi.product_id
-        WHERE
-            p.product_id = $1
-        GROUP BY
-            p.product_id, p.product_name, p.product_category, p.product_description, 
-            p.best_seller, p.type, p.size, p.product_price, p.stock_quantity
-        ORDER BY
-            p.product_created_at DESC;`,
-                    [productId]
+                p.product_id,
+                p.product_name,
+                p.product_category,
+                p.product_description,
+                p.best_seller,
+                p.type,
+                p.size,
+                p.product_price,
+                p.stock_quantity,
+                AVG(r.rating) AS avg_rating,
+                ARRAY_AGG(DISTINCT pi.product_img_url) AS product_img_urls
+            FROM
+                products p
+            INNER JOIN
+                product_images pi ON p.product_id = pi.product_id
+            LEFT JOIN 
+                reviews r ON p.product_id = r.product_id
+            WHERE
+                p.product_id = $1
+            GROUP BY
+                p.product_id, p.product_name, p.product_category, p.product_description, 
+                p.best_seller, p.type, p.size, p.product_price, p.stock_quantity
+            ORDER BY
+                p.product_created_at DESC;`,
+            [productId]
         );
+        
+        console.log(result.rows)
         if (result.rows.length > 0) {
             const product = result.rows[0];
             return { product };
@@ -134,7 +137,7 @@ export const getProductByIdService = async (productId) => {
     }
 };
 export const getProductByUserIdService = async (userId) => {
-    console.log(userId)
+ 
     try {
         const result = await db.query(
             `SELECT 
@@ -252,7 +255,7 @@ export const uploadImageService = async (productId, files) => {
                         unlink(file.path, (err) => {
                             if (err) throw err;
                         });
-                        console.log(uploadResult)
+                        
                         const secureUrl = `${uploadResult.public_id}.${uploadResult.format}`
                         await db.query(
                             "INSERT INTO product_images (product_id, product_img_url) VALUES($1,$2)",
@@ -298,7 +301,7 @@ export const filterProductService = async (filters) => {
     `;
         const values = []
         const andClauses = []
-        console.log("I'm at filter right now ", filters)
+      
         let paramIndex = 1
         if (filters.type && filters.type.length > 0) {
             const typesClause = filters.type.map(() => `p.type = $${paramIndex++}`)
@@ -323,7 +326,7 @@ export const filterProductService = async (filters) => {
                 p.product_id, p.product_name, p.product_category, p.product_price, p.product_description
             
         `
-        console.log("this is filters query", filters.sort)
+      
         if (filters.sort !== "default") {
             query += `ORDER BY
                 p.product_price ${filters.sort}
@@ -339,7 +342,7 @@ export const filterProductService = async (filters) => {
         const page = filters.page && filters.page > 0 ? filters.page : 1
         const offset = (page - 1) * limit
         query += `LIMIT ${limit} OFFSET ${offset};`
-        console.log(query)
+     
         const result = await db.query(query, values);
         if (result.rows.length > 0) {
             const products = result.rows;

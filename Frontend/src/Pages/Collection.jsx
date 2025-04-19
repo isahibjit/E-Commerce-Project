@@ -7,6 +7,7 @@ import FilterCollection from "./CollectionComponents/FilterCollection";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { bouncy } from "ldrs";
 import debounce from "lodash.debounce";
+import ProductCardSkeleton from "./ProductsPage/Components/ProductCardSkeleton";
 
 bouncy.register();
 
@@ -113,17 +114,19 @@ const Collection = () => {
         <div className="w-full ">
           <SortCollection handleSortChange={handleSortChange} />
           <div className="grid   justify-center  2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
-            {products.map((product, idx) => (
-              <ProductCard id={idx} product={product} />
-            ))}
+          {isLoading ? (<>
+     {Array.from({length : 8}).map((_, idx) => (
+        <ProductCardSkeleton key={idx} />
+     ))}
+      </>
+      ) : (
+        products?.map((product, idx) => (
+          <ProductCard key={idx} id={idx} product={product} />
+        ))
+      )}
           </div>
         </div>
       </div>
-      {isLoading && (
-        <div className="text-center">
-          <l-bouncy size="50" speed="1.14" color="black"></l-bouncy>
-        </div>
-      )}
       {isFetchingNextPage && (
         <div className="text-center">
           <l-bouncy size="50" speed="1.14" color="black"></l-bouncy>

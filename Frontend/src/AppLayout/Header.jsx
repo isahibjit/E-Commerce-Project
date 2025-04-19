@@ -109,7 +109,7 @@ const Navbar = () => {
             <IoSearchOutline />
           </span>
 
-          {user.login ? (
+          {user?.login ? (
             <div className="dropdown dropdown-hover dropdown-end">
               <div
                 tabIndex="0"

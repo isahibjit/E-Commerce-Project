@@ -10,8 +10,10 @@ const AdminPanel = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = React.useState(false);
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         "http://localhost:3000/api/admin/login",
         data,{withCredentials : true}
@@ -19,8 +21,10 @@ const AdminPanel = () => {
       if (response.status === 200) {
         toast.success("Login Successfull");
          navigate("/admin/dashboard")
+         setIsLoading(false)
         }
     } catch (error) {
+      setIsLoading(false)
         console.log(error)
         if(error.response.data){
           toast.error(error.response.data.message)
@@ -90,10 +94,33 @@ const AdminPanel = () => {
         </div>
         <button
           type="submit"
-          className="bg-black text-white py-2 cursor-pointer rounded-lg hover:bg-gray-950 transition-all duration-200  px-6 w-fit"
+          className="bg-black flex items-center justify-center text-white py-2 cursor-pointer rounded-lg hover:bg-gray-950  transition-all duration-200  px-6 w-24 h-10"
         >
-          Login
-        </button>
+          {isLoading ? (
+              <svg
+                className="animate-spin h-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+            ) : (
+              <p>Login</p>
+            )}
+          </button>
       </form>
     </div>
     </div>

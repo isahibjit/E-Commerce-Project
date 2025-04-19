@@ -9,12 +9,18 @@ import AdminBgTheme from "../DashboardComponents/AdminBgTheme";
 import AdminSidebar from "../Admin Pages/AdminSidebar";
 import AdminNotAuthorize from "../Admin Pages/AdminNotAuthorize";
 import { toast } from "react-toastify";
+import { Trefoil } from 'ldrs/react'
+import 'ldrs/react/Trefoil.css'
 
 const AdminDashboard = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [admin, setAdmin] = useState();
+
+// Default values shown
+
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,10 +44,17 @@ const AdminDashboard = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [navigate]);
 
   return isLoading ? (
-    <h1>Loading</h1>
+<div className="h-screen text-center flex items-center justify-center"><Trefoil
+  size="120"
+  stroke="4"
+  strokeLength="0.15"
+  bgOpacity="0.1"
+  speed="1.4"
+  color="blue" 
+/></div>
   ) : !isAuthorized ? (
     <AdminNotAuthorize error={errorMessage} />
   ) : (

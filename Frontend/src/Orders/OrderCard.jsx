@@ -7,20 +7,33 @@ const OrderCard = ({
   orderStatus,
   productSize,
   productTotalAmount,
-  paymentMethod
+  paymentMethod,
+  orderDate,
+  productId
 }) => {
+  const date = new Date(orderDate);
+
+  const options = {
+    weekday: "short",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  };
+  const orderDateFormatted = date.toLocaleDateString("en-US", options);
+
   return (
     <article className=" border-gray-300 border border-x-0 py-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex gap-4">
-          <div className="rounded-lg overflow-hidden">
-            <img
-              src={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fit,q_auto,w_200,h_300/v1743761910/${productImgUrl}`}
-              alt="Product"
-              className="object-cover w-28 h-28 sm:w-32 sm:h-32"
-            />
-          </div>
-
+          <a href={`product/${productId}/${productName}`}>
+            <div className="rounded-lg overflow-hidden hover:shadow-md transition-all duration-200 hover:scale-110 ">
+              <img
+                src={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fit,q_auto,w_200,h_300/v1743761910/${productImgUrl}`}
+                alt="Product"
+                className="object-cover w-28 h-28 sm:w-32 sm:h-32"
+              />
+            </div>
+          </a>
           <div className="flex flex-col justify-center gap-1">
             <h2 className="font-semibold">{productName}</h2>
             <div className="flex flex-wrap gap-3 text-sm text-gray-700 font-medium">
@@ -29,7 +42,7 @@ const OrderCard = ({
               <span>Size: {productSize}</span>
             </div>
             <p className="font-medium text-sm">
-              Date: <span className="text-gray-500">Thu April 10 2025</span>
+              Date: <span className="text-gray-500">{orderDateFormatted}</span>
             </p>
             <p className="font-medium text-sm">
               Payment: <span className="text-gray-500">{paymentMethod}</span>

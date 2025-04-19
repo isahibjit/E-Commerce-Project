@@ -1,33 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { UserContext } from "../../../Contexts/UserContext";
+import { TailChase } from "ldrs/react";
+import "ldrs/react/TailChase.css";
+
 const BACKEND_API = import.meta.env.VITE_BACKEND_API;
+
 const Review = ({ productId }) => {
   const { user } = useContext(UserContext);
   const [reviewList, setReviewList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isReviewLoading, setIsReviewLoading] = useState(false);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        setIsReviewLoading(true);
         const response = await axios.get(
           `http://localhost:3000/api/reviews/${productId}`,
           {
             withCredentials: true,
           }
         );
-        if (response.status ===200) {
+        if (response.status === 200) {
           setReviewList(response.data.reviews);
+          setIsReviewLoading(false);
         }
-        
       } catch (error) {
         console.log(error);
+        setIsReviewLoading(false);
       }
     };
     fetchReviews();
   }, [productId]);
-  console.log("this is reviewList",reviewList)
-
 
   const [showForm, setShowForm] = useState(false);
   const {
@@ -48,21 +54,21 @@ const Review = ({ productId }) => {
       toast.info("Please fill in all fields.");
       return;
     }
-    console.log(data);
     try {
-        data.productId = productId
-      const response = await axios.post(
-        BACKEND_API + "api/reviews",
-        data,
-        {withCredentials : true}
-      );
-      if (response.status === 200) {
-        toast.success("Review Added !");
+      setIsLoading(true);
+      data.productId = productId;
+      const response = await axios.post(BACKEND_API + "api/reviews", data, {
+        withCredentials: true,
+      });
+      if (response.status === 201) {
+        setIsLoading(false);
+        toast.success("Review Submitted !");
+        setShowForm(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log("an error occurred while adding the review", error);
     }
-    toast.success("Review submitted!");
   };
 
   return (
@@ -73,19 +79,25 @@ const Review = ({ productId }) => {
         </h2>
 
         {/* Reviews */}
-        <div className="space-y-4 mb-8">
-          {reviewList.map((review, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded shadow">
-              <p className="font-semibold text-yellow-500">
-                {"⭐️".repeat(review?.rating)}
-              </p>
-              <p className="text-sm text-gray-600">"{review?.comment}"</p>
-              <p className="text-xs text-right text-gray-500">
-                — {review?.name}
-              </p>
-            </div>
-          ))}
-        </div>
+        {!isReviewLoading ? (
+          <div className="space-y-4 mb-8">
+            {reviewList.map((review, index) => (
+              <div key={index} className="bg-gray-100 p-4 rounded shadow">
+                <p className="font-semibold text-yellow-500">
+                  {"⭐️".repeat(review?.rating)}
+                </p>
+                <p className="text-sm text-gray-600">"{review?.comment}"</p>
+                <p className="text-xs text-right text-gray-500">
+                  — {review?.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-32">
+            <TailChase size="60" speed="1.75" color="pink" />
+          </div>
+        )}
 
         {/* Toggle Form */}
         {!showForm ? (
@@ -146,9 +158,32 @@ const Review = ({ productId }) => {
               <div className="flex items-center gap-4">
                 <button
                   type="submit"
-                  className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-2 rounded"
+                  className="bg-pink-600 flex items-center justify-center hover:bg-pink-700 w-[200px] text-white font-semibold px-4 py-2 rounded"
                 >
-                  ✅ Submit Review
+                  {isLoading ? (
+                    <svg
+                      className="animate-spin h-5 w-8 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8H4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "✅ Submit Review"
+                  )}
                 </button>
                 <button
                   onClick={() => {

@@ -1,10 +1,10 @@
-import { deleteReviewsService, getReviewsService , addReviewsService} from "../Services/reviewService.js";
+import { deleteReviewsService, getReviewsService, addReviewsService } from "../Services/reviewService.js";
 
 export const getReviews = async (req, res) => {
     try {
-        const {productId} = req.params
+        const { productId } = req.params
         const reviews = await getReviewsService(productId);
-        res.status(200).json({reviews})
+        res.status(200).json({ reviews })
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: error.message })
@@ -53,3 +53,4 @@ export const deleteReviews = async (req, res) => {
     }
 
 }
+

@@ -97,6 +97,7 @@ export const getOrdersService = async (userId) => {
     try {
         const result = await db.query(
             `SELECT 
+    p.product_id,
     p.product_name, 
     oi.quantity, 
     oi.size, 
@@ -116,6 +117,7 @@ export const getOrdersService = async (userId) => {
     WHERE 
         o.user_id = $1
     GROUP BY 
+        p.product_id,
         p.product_name, 
         oi.quantity, 
         oi.size, 

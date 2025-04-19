@@ -17,6 +17,7 @@ const OrderCard = ({ order }) => {
     created_at,
     pincode,
   } = order;
+
   const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   const { register, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
@@ -51,59 +52,43 @@ const OrderCard = ({ order }) => {
   };
 
   return (
-    <div className="border-[1px] my-8 border-gray-400 rounded-md shadow p-4 bg-white">
-      <div className="flex items-start justify-between gap-4 flex-wrap">
-        {/* Left Side */}
-        <div className="flex items-start gap-4">
+    <div className="border my-8 border-gray-400 rounded-md shadow p-4 bg-white">
+      <div className="flex flex-col md:flex-row gap-6 md:items-start">
+        {/* Product Info */}
+        <div className="flex gap-4 md:w-1/3">
           <div className="w-12 h-12 bg-gray-200 flex items-center justify-center rounded">
-            <img
+          <img
               src="data:image/svg+xml,%3csvg%20width='73'%20height='73'%20viewBox='0%200%2073%2073'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20x='0.5'%20y='0.5'%20width='72'%20height='72'%20fill='%23F9FAFB'%20stroke='%23D2D2D2'/%3e%3cpath%20d='M41.1484%2037.4871L38.6348%2038.9418V65.0908L61.2694%2052.0221V25.873L41.1484%2037.4871Z'%20fill='%23565656'/%3e%3cpath%20d='M45.247%2014.039L36.5423%209L13.2793%2022.4295L21.9956%2027.4684L45.247%2014.039Z'%20fill='%23565656'/%3e%3cpath%20d='M59.7945%2022.4307L49.7631%2016.7168L26.5117%2030.1463L27.8384%2030.8329L36.5431%2035.8602L45.2013%2030.8678L59.7945%2022.4307Z'%20fill='%23565656'/%3e%3cpath%20d='M24.7545%2039.7573L20.5883%2037.6161V30.9595L12%2026.0137V51.9765L34.4717%2064.9521V38.9893L24.7545%2033.3917V39.7573Z'%20fill='%23565656'/%3e%3c/svg%3e"
               alt="Package"
               className="w-18 h-18"
             />
           </div>
-
           <div className="text-sm space-y-1">
             {productDetails.map((product, index) => (
               <p key={index}>
-                <span className="font-medium">{product.name}</span> x{" "}
-                {product.quantity} {product.size},
+                <span className="font-medium">{product.name}</span> x {product.quantity} {product.size}
               </p>
             ))}
-            <p className="font-semibold mt-2">
-              {first_name} {last_name}
-            </p>
+            <p className="font-semibold mt-2">{first_name} {last_name}</p>
             <p>Pin code: {pincode}</p>
           </div>
         </div>
 
         {/* Order Info */}
-        <div className="text-sm space-y-1 min-w-[150px]">
-          <p>
-            <span className="font-medium">Items:</span>{" "}
-            {quantities.reduce((a, b) => a + b, 0)}
-          </p>
-          <p>
-            <span className="font-medium">Total:</span> ₹{total_amount}
-          </p>
-          <p>
-            <span className="font-medium">Method:</span>{" "}
-            {payment_method.toUpperCase()}
-          </p>
-          <p>
-            <span className="font-medium">Payment:</span> {payment_status}
-          </p>
-          <p>
-            <span className="font-medium">Date:</span> {formattedDate}
-          </p>
+        <div className="text-sm space-y-1 md:w-1/3">
+          <p><span className="font-medium">Items:</span> {quantities.reduce((a, b) => a + b, 0)}</p>
+          <p><span className="font-medium">Total:</span> ₹{total_amount}</p>
+          <p><span className="font-medium">Method:</span> {payment_method.toUpperCase()}</p>
+          <p><span className="font-medium">Payment:</span> {payment_status}</p>
+          <p><span className="font-medium">Date:</span> {formattedDate}</p>
         </div>
 
-        {/* Status Dropdown */}
-        <div>
+        {/* Dropdown */}
+        <div className="md:w-1/3">
           <select
             {...register("order_status")}
             onChange={handleStatusChange}
-            className="border border-gray-300 rounded px-2 py-1 text-sm"
+            className="border border-gray-300 rounded px-2 py-1 text-sm w-full md:w-fit"
           >
             <option>Order Placed</option>
             <option>Packing</option>

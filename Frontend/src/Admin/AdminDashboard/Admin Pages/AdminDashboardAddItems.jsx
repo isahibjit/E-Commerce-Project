@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Loading from "../DashboardComponents/Loading";
 const AdminDashboardAddItems = () => {
-
   const {
     register,
     handleSubmit,
@@ -18,51 +17,54 @@ const AdminDashboardAddItems = () => {
 
   const [images, setImages] = useState([null, null, null, null]);
   const [imagePreviews, setImagePreviews] = useState([null, null, null, null]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const fileInputs = useRef([]);
   const onSubmit = async (data) => {
     try {
-      if(!images.some(image=> image !== null)){
-        toast.error("At least one image should be added!")
-        return 
+      if (!images.some((image) => image !== null)) {
+        toast.error("At least one image should be added!");
+        return;
       }
-      const response  = await axios.post("http://localhost:3000/api/product/add",data,{withCredentials: true})
-      
-      setIsLoading(true)
+      const response = await axios.post(
+        "http://localhost:3000/api/product/add",
+        data,
+        { withCredentials: true }
+      );
+
+      setIsLoading(true);
       if (response.status === 201) {
-              
-              const productId = response.data.productId
-              let formData = new FormData();
-              images.map((image)=>{
-                formData.append("images", image);
-              })
-              formData.append("productId",productId)
-              try {
-              const response =  await axios.post("http://localhost:3000/api/product/upload-images", formData, {
-                  headers: { "Content-Type": "multipart/form-data" },
-                  withCredentials: true,
-                });
-                if(response.status === 201){
-                  setIsLoading(false)
-                  toast.success("Product Added Successfully");
-                  setImagePreviews([null, null, null, null])
-                  
-                }
-              } catch (error) {
-                console.log(error)
-                setIsLoading(false)
-              }
-              finally{
-                reset()
-                formData = null
-              }
-             
-         }    
-            
+        const productId = response.data.productId;
+        let formData = new FormData();
+        images.map((image) => {
+          formData.append("images", image);
+        });
+        formData.append("productId", productId);
+        try {
+          const response = await axios.post(
+            "http://localhost:3000/api/product/upload-images",
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+              withCredentials: true,
+            }
+          );
+          if (response.status === 201) {
+            setIsLoading(false);
+            toast.success("Product Added Successfully");
+            setImagePreviews([null, null, null, null]);
+          }
+        } catch (error) {
+          console.log(error);
+          setIsLoading(false);
+        } finally {
+          reset();
+          formData = null;
+        }
+      }
     } catch (error) {
       console.log(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -81,17 +83,21 @@ const AdminDashboardAddItems = () => {
     if (errors.size) {
       toast.error(errors.size.message);
     }
-    if(errors.stockQuantity){
-      toast.error(errors.stockQuantity.message)
+    if (errors.stockQuantity) {
+      toast.error(errors.stockQuantity.message);
     }
-    if(errors.fileInput){
-      toast.error(errors.fileInput.message)
+    if (errors.fileInput) {
+      toast.error(errors.fileInput.message);
     }
   }, [errors]);
 
-  if(!isLoading){
-    return  (
-      <form action="" onSubmit={handleSubmit(onSubmit)} className="md:w-[60%] min-h-[65vh]">
+  if (!isLoading) {
+    return (
+      <form
+        action=""
+        onSubmit={handleSubmit(onSubmit)}
+        className="md:w-[60%] min-h-[65vh]"
+      >
         <div className="px-2 py-4 shadow-lg    flex flex-col gap-4 card   ">
           <label htmlFor="fileInput">Upload Image</label>
           <div className="flex gap-3  ">
@@ -105,7 +111,7 @@ const AdminDashboardAddItems = () => {
                       const newFiles = [...images];
                       newFiles[index] = file;
                       setImages(newFiles);
-  
+
                       const newImages = [...imagePreviews];
                       newImages[index] = URL.createObjectURL(file);
                       setImagePreviews(newImages);
@@ -205,9 +211,13 @@ const AdminDashboardAddItems = () => {
               })}
             </div>
             <div className="flex flex-col gap-2 justify-center md:w-1/2 ">
-              <label htmlFor="ProductQuantity">Quantity <span className="text-red-800">*</span></label>
+              <label htmlFor="ProductQuantity">
+                Quantity <span className="text-red-800">*</span>
+              </label>
               <input
-                {...register("stockQuantity",{required : "Stock Quantity Cannot be Empty"})}
+                {...register("stockQuantity", {
+                  required: "Stock Quantity Cannot be Empty",
+                })}
                 className="bg-white border border-gray-300  py-2 px-1 rounded-sm outline-pink-400"
                 type="number"
                 placeholder="0"
@@ -224,24 +234,45 @@ const AdminDashboardAddItems = () => {
                 Add to bestseller
               </label>
             </div>
-            <div className="">
+            <div>
               <button
                 type="submit"
                 className="cursor-pointer btn btn-black w-1/3 rounded-lg bg-black text-white border-black"
               >
-                ADD
+                {isLoading ? (
+                  <svg
+                    className="animate-spin h-8 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"
+                    ></path>
+                  </svg>
+                ) : (
+                  <p>ADD</p>
+                )}
               </button>
+              
             </div>
           </div>
         </div>
-      
       </form>
-    ) ;
+    );
+  } else {
+    return <Loading />;
   }
-  else{
-    return <Loading />
-  }
-  
 };
 
 export default AdminDashboardAddItems;

@@ -20,7 +20,7 @@ const Checkout = () => {
   } = useForm();
   const { user } = useContext(UserContext);
   useEffect(() => {
-    if (!user.login) {
+    if (!user?.login) {
       sessionStorage.setItem("showNotLoginToast", "true");
       navigate("/", { replace: true });
       window.scrollTo(0, 0);
