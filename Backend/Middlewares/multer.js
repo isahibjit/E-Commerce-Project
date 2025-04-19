@@ -2,7 +2,7 @@ import multer from "multer";
 import {v4 as uuid} from "uuid"
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './public/temp')
+      cb(null, './public/tempImageStore')
     },
     filename: function (req, file, cb) {
      
