@@ -14,8 +14,12 @@ import reviewRoutes from "./Routes/reviewRoutes.js"
 import stripeRoutes from "./Routes/stripeRoutes.js"
 import orderRoutes from "./Routes/orderRoutes.js"
 import registerStripeWebhook from "./Stripe/webhook.js";
+import PgSession from "connect-pg-simple"
 const app = express();
+const PgSession = PgSession(session)
 dotenv.config();
+
+
 const PORT = process.env.PORT || 5000;
 registerStripeWebhook(app)
 
@@ -31,14 +35,19 @@ app.use(morgan("dev"));
 //creating a session here !
 app.use(
   session({
+    store: new PgSession({
+      pool: db,
+      tableName: "session",
+      createTableIfMissing: true,
+    }),
     secret: process.env.SESSION_SECRET || "country",
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 30 * 60 * 1000,
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "None",
     },
   })
 );
@@ -47,9 +56,9 @@ app.use(passport.session());
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/product", productRoutes);
-app.use("/api/reviews",reviewRoutes)
-app.use("/api/stripe",stripeRoutes)
-app.use("/api/orders",orderRoutes)
+app.use("/api/reviews", reviewRoutes)
+app.use("/api/stripe", stripeRoutes)
+app.use("/api/orders", orderRoutes)
 
 
 app.get("/", (req, res) => {
@@ -115,7 +124,7 @@ async function initDb() {
                 FOREIGN KEY (user_id) REFERENCES users(id)
         )`)
 
-        await db.query(`
+    await db.query(`
           CREATE TABLE IF NOT EXISTS orders (
             order_id SERIAL PRIMARY KEY,
             session_id TEXT UNIQUE ,
@@ -138,8 +147,8 @@ async function initDb() {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
         `);
-        
-        await db.query(`
+
+    await db.query(`
           CREATE TABLE IF NOT EXISTS order_items (
             item_id SERIAL PRIMARY KEY,
             order_id INTEGER REFERENCES orders(order_id) ON DELETE CASCADE,
@@ -149,7 +158,7 @@ async function initDb() {
             unit_price NUMERIC(10, 2)
           );
         `);
-        
+
 
     console.log("Database initialized successfully!");
   } catch (error) {
