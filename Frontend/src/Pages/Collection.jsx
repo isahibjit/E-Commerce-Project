@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import stopImg from "./../assets/stop.png"
+import stopImg from "./../assets/stop.png";
 import ProductCard from "./ProductsPage/ProductCard";
 import SortCollection from "./CollectionComponents/SortCollection";
 import FilterCollection from "./CollectionComponents/FilterCollection";
@@ -8,6 +8,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { bouncy } from "ldrs";
 import debounce from "lodash.debounce";
 import ProductCardSkeleton from "./ProductsPage/Components/ProductCardSkeleton";
+import { SearchContext } from "../Contexts/SearchContext";
+import SearchBar from "./ProductsPage/Components/SearchBar";
 
 bouncy.register();
 
@@ -16,7 +18,9 @@ const Collection = () => {
     categories: [],
     types: [],
     sort: "default",
+    searchQuery : "",
   });
+  const {showSearch} = useContext(SearchContext)
   const [filterClicked, setFilterClicked] = useState(false);
   const fetchProducts = async ({ pageParam = 1 }) => {
     const url = new URL("http://localhost:3000/api/product/filter");
@@ -26,7 +30,7 @@ const Collection = () => {
     );
     url.searchParams.append("sort", queries.sort);
     url.searchParams.append("_page", pageParam);
-
+    url.searchParams.append("searchQuery",queries.searchQuery)
     const response = await axios.get(url.toString(), {
       withCredentials: true,
     });
@@ -68,13 +72,19 @@ const Collection = () => {
   const debouncedSetQueries = debounce((updater) => {
     setQueries(updater);
   }, 200);
+  const debouncedSetSearchQuery = debounce((updater) => {
+    setQueries(updater);
+  }, 500);
   useEffect(() => {
     // Scroll to top only if user reloads from bottom
-    if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 300) {
+    if (
+      window.scrollY + window.innerHeight >=
+      document.body.scrollHeight - 300
+    ) {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
   }, []);
-  
+
   const handleCharacterChange = (category) => {
     debouncedSetQueries((prev) => ({
       ...prev,
@@ -99,12 +109,21 @@ const Collection = () => {
       sort: sort === prev.sort ? "default" : sort,
     }));
   };
-
+  const handleSearchChange = (e)=>{
+    debouncedSetSearchQuery((prev)=> ({
+      ...prev,
+      searchQuery : e.target.value
+    }))
+}
   const products = data?.pages?.flatMap((page) => page.data) || [];
 
   return (
-    <div>
-      <div className="flex md:flex-row flex-col gap-8   border border-x-0 border-b-0 border-gray-400">
+    <div className=" border border-x-0 border-b-0 border-gray-300">
+      {/* search form  */}
+      {showSearch &&(
+        <SearchBar handleSearchChange={handleSearchChange} />
+      )}
+      <div className="flex md:flex-row flex-col gap-8  ">
         <FilterCollection
           handleCharacterChange={handleCharacterChange}
           handleTypeChange={handleTypeChange}
@@ -114,16 +133,17 @@ const Collection = () => {
         <div className="w-full ">
           <SortCollection handleSortChange={handleSortChange} />
           <div className="grid   justify-center  2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
-          {isLoading ? (<>
-     {Array.from({length : 8}).map((_, idx) => (
-        <ProductCardSkeleton key={idx} />
-     ))}
-      </>
-      ) : (
-        products?.map((product, idx) => (
-          <ProductCard key={idx} id={idx} product={product} />
-        ))
-      )}
+            {isLoading ? (
+              <>
+                {Array.from({ length: 8 }).map((_, idx) => (
+                  <ProductCardSkeleton key={idx} />
+                ))}
+              </>
+            ) : (
+              products?.map((product, idx) => (
+                <ProductCard key={idx} id={idx} product={product} />
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { url } from "node:inspector";
 import db from "../Config/db.js";
 import cloudinary from "../utils/cloudinary.js";
 import { unlink } from "node:fs";
-import { verifyToken,generateResetToken } from "../Config/JWT.js";
+import { verifyToken, generateResetToken } from "../Config/JWT.js";
 export const getProductService = async (isBestseller) => {
 
     try {
@@ -124,7 +124,7 @@ export const getProductByIdService = async (productId) => {
                 p.product_created_at DESC;`,
             [productId]
         );
-        
+
         console.log(result.rows)
         if (result.rows.length > 0) {
             const product = result.rows[0];
@@ -137,7 +137,7 @@ export const getProductByIdService = async (productId) => {
     }
 };
 export const getProductByUserIdService = async (userId) => {
- 
+
     try {
         const result = await db.query(
             `SELECT 
@@ -255,7 +255,7 @@ export const uploadImageService = async (productId, files) => {
                         unlink(file.path, (err) => {
                             if (err) throw err;
                         });
-                        
+
                         const secureUrl = `${uploadResult.public_id}.${uploadResult.format}`
                         await db.query(
                             "INSERT INTO product_images (product_id, product_img_url) VALUES($1,$2)",
@@ -301,7 +301,7 @@ export const filterProductService = async (filters) => {
     `;
         const values = []
         const andClauses = []
-      
+
         let paramIndex = 1
         if (filters.type && filters.type.length > 0) {
             const typesClause = filters.type.map(() => `p.type = $${paramIndex++}`)
@@ -313,10 +313,16 @@ export const filterProductService = async (filters) => {
             andClauses.push(`(${categoriesClause.join(" OR ")})`)
             values.push(...filters.category)
         }
-        if(filters.productId ) {
+        if (filters.productId) {
             const productIdClause = `p.product_id != $${paramIndex}`
             andClauses.push(productIdClause)
             values.push(filters.productId)
+        }
+        if(filters.searchQuery){
+            const searchQueryClause = `p.product_name ILIKE '%' || $${paramIndex++} || '%'`
+            andClauses.push(searchQueryClause)
+            values.push(filters.searchQuery)
+
         }
         if (andClauses.length > 0) {
             query += `WHERE ${andClauses.join(" AND ")}`
@@ -326,7 +332,7 @@ export const filterProductService = async (filters) => {
                 p.product_id, p.product_name, p.product_category, p.product_price, p.product_description
             
         `
-      
+
         if (filters.sort !== "default") {
             query += `ORDER BY
                 p.product_price ${filters.sort}
@@ -342,16 +348,20 @@ export const filterProductService = async (filters) => {
         const page = filters.page && filters.page > 0 ? filters.page : 1
         const offset = (page - 1) * limit
         query += `LIMIT ${limit} OFFSET ${offset};`
-     
+
         const result = await db.query(query, values);
         if (result.rows.length > 0) {
             const products = result.rows;
             return { products };
         } else {
-            return {products : [],message : "No Products Found"}
+            return { products: [], message: "No Products Found" }
         }
     } catch (error) {
         console.log(error)
         throw new Error(error.message);
     }
 }
+
+
+
+

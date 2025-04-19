@@ -117,13 +117,13 @@ export const uploadImage = async (req, res) => {
 
 export const filterProduct = async (req, res) => {
     try {
-        const {type = [],category = [], sort,_page,productId} = req.query || {}
+        const {type = [],category = [], sort,_page,productId, searchQuery} = req.query || {}
        
 
-        if (req.query.type  || req.query.category || req.query.sort || req.query._page || req.query.productId) {
+        if (req.query.type  || req.query.category || req.query.sort || req.query._page || req.query.productId || req.query.searchQuery) {
             const types = type.filter((typeQuery) => typeQuery.trim() !== "" && typeQuery.trim() !== null).map((type) => type.trim())
             const categories = category.filter((categoryQuery) => categoryQuery.trim() !== "" && categoryQuery.trim() !== null).map((category) => category.trim()) 
-            let filters = {type : null,category : null,sort : null,page : null}
+            let filters = {type : null,category : null,sort : null,page : null, searchQuery : null}
             if(categories.length > 0){
                filters.category = categories
             }
@@ -139,6 +139,9 @@ export const filterProduct = async (req, res) => {
             if(productId){
                 filters.productId = productId
             }
+            if(searchQuery){
+                filters.searchQuery = searchQuery
+            }
             const { products } = await filterProductService(filters)
             return res.status(200).json({products})
         }
@@ -153,3 +156,4 @@ export const filterProduct = async (req, res) => {
 
     }
 }
+

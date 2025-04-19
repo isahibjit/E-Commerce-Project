@@ -9,13 +9,14 @@ import { IoIosArrowBack } from "react-icons/io";
 import { CartContext } from "../Contexts/CartContext";
 import { UserContext } from "../Contexts/UserContext";
 import Logout from "../Authentications/logout";
+import { SearchContext } from "../Contexts/SearchContext";
 
 const Navbar = () => {
   const [hamburgerClicked, sethamburgerClicked] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const { cartItems, getSubTotalPrice } = useContext(CartContext);
   const { user } = useContext(UserContext);
-
+  const { setShowSearch } = useContext(SearchContext);
   console.log(user);
   useEffect(() => {
     if (hamburgerClicked) {
@@ -104,7 +105,10 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
-        <div className="text-2xl flex items-center gap-2">
+        <div
+          onClick={() => setShowSearch((prev) => !prev)}
+          className="text-2xl flex items-center gap-2"
+        >
           <span className="cursor-pointer hover:bg-pink-300 p-2 rounded-lg transition-all duration-200">
             <IoSearchOutline />
           </span>
@@ -126,15 +130,15 @@ const Navbar = () => {
               >
                 <div className="card-body">
                   <div className="card-actions">
-                   <Logout />
+                    <Logout />
                   </div>
-                    <Link to="/orders">
-                  <div className="card-actions">
-                    <button className=" bg-yellow-400 p-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2  btn-block cursor-pointer transition-colors duration-200 btn-block">
-                      View Orders
-                    </button>
-                  </div>
-                    </Link>
+                  <Link to="/orders">
+                    <div className="card-actions">
+                      <button className=" bg-yellow-400 p-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2  btn-block cursor-pointer transition-colors duration-200 btn-block">
+                        View Orders
+                      </button>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -147,53 +151,53 @@ const Navbar = () => {
             </Link>
           )}
           <div className="dropdown dropdown-end">
-  <div
-    tabIndex="0"
-    role="button"
-    className="btn btn-ghost hover:bg-pink-300 p-2 rounded-lg border-0"
-  >
-    <div className="indicator">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-black"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-        />
-      </svg>
-      <span className="badge badge-sm bg-black text-white indicator-item">
-        {cartItems.length}
-      </span>
-    </div>
-  </div>
+            <div
+              tabIndex="0"
+              role="button"
+              className="btn btn-ghost hover:bg-pink-300 p-2 rounded-lg border-0"
+            >
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-black"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="badge badge-sm bg-black text-white indicator-item">
+                  {cartItems.length}
+                </span>
+              </div>
+            </div>
 
-  <div
-    tabIndex="0"
-    className="dropdown-content z-10 mt-3 w-64 rounded-lg shadow-lg bg-white"
-  >
-    <div className="p-4 space-y-4">
-      <span className="text-lg font-semibold block text-center">
-        {cartItems.length} Items
-      </span>
-      <div className="text-center text-xl text-blue-600">
-        Subtotal: ₹{getSubTotalPrice()}
-      </div>
-      <div className="flex justify-center">
-        <a href="/cart" className="w-full">
-          <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black text-lg font-medium py-2 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2">
-            View Cart
-          </button>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+            <div
+              tabIndex="0"
+              className="dropdown-content z-10 mt-3 w-64 rounded-lg shadow-lg bg-white"
+            >
+              <div className="p-4 space-y-4">
+                <span className="text-lg font-semibold block text-center">
+                  {cartItems.length} Items
+                </span>
+                <div className="text-center text-xl text-blue-600">
+                  Subtotal: ₹{getSubTotalPrice()}
+                </div>
+                <div className="flex justify-center">
+                  <a href="/cart" className="w-full">
+                    <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black text-lg font-medium py-2 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2">
+                      View Cart
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <span
             onClick={() => sethamburgerClicked(true)}
