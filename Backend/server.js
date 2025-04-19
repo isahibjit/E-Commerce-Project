@@ -36,21 +36,22 @@ app.use(morgan("dev"));
 app.use(
   session({
     store: new PgSession({
-      pool: db,
-      tableName: "session",
-      createTableIfMissing: true,
+      pool: db,  
+      tableName: "session",  
+      createTableIfMissing: true,  
     }),
-    secret: process.env.SESSION_SECRET || "country",
+    secret: process.env.SESSION_SECRET || "country",  
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 30 * 60 * 1000,
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: true,  // For production
+      sameSite: "None",  // For production
     },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/admin", adminRoutes);
