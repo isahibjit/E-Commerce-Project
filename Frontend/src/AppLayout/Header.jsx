@@ -18,14 +18,19 @@ const Navbar = () => {
   const { user } = useContext(UserContext);
   const { setShowSearch } = useContext(SearchContext);
   console.log(user);
+
   useEffect(() => {
     if (hamburgerClicked) {
-      document.body.classList.add("overflow-hidden");
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.style.overflow = "auto";
     }
+  
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [hamburgerClicked]);
-
+  
   return (
     <div className="text-sm  font-medium text-gray-800  ">
       <div className=" justify-between items-center flex   py-2 mx-auto  ">
@@ -216,7 +221,7 @@ const Navbar = () => {
 
       <div className="overflow-x-hidden ">
         <div
-          className={`md:hidden fixed top-0 right-0 w-full h-full transition-transform duration-300 bg-white z-50 ${
+          className={`md:hidden overflow-x-hidden fixed top-0 right-0 w-full h-full transition-transform duration-300 bg-white z-50 ${
             hamburgerClicked
               ? "translate-x-0"
               : "translate-x-full pointer-events-none opacity-0"

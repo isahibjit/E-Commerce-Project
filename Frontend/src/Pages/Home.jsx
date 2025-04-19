@@ -90,7 +90,7 @@ const Home = () => {
           </p>
         </div>
         <Bestsellers />
-        <div className="flex justify-around items-center shadow-md p-8 bg-[#fff] rounded-xl  max-w-[80%] mx-auto">
+        <div className="flex md:flex-row flex-col md:gap-4 gap-8 justify-around items-center shadow-md p-8 bg-[#fff] rounded-xl  max-w-[80%] mx-auto">
           <div className="flex flex-col gap-1 items-center ">
             <FaExchangeAlt className="md:text-5xl" />
             <h1 className="text-gray-800 font-semibold">
