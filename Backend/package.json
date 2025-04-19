@@ -29,5 +29,8 @@
     "pg": "^8.14.1",
     "stripe": "^18.0.0",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
