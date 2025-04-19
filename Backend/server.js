@@ -14,9 +14,9 @@ import reviewRoutes from "./Routes/reviewRoutes.js"
 import stripeRoutes from "./Routes/stripeRoutes.js"
 import orderRoutes from "./Routes/orderRoutes.js"
 import registerStripeWebhook from "./Stripe/webhook.js";
-import PgSession from "connect-pg-simple"
+import pgSession from "connect-pg-simple"
 const app = express();
-const PgSession = PgSession(session)
+const PgSession = pgSession(session)
 dotenv.config();
 
 
