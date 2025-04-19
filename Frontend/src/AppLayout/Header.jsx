@@ -216,9 +216,11 @@ const Navbar = () => {
 
       <div className="overflow-x-hidden ">
         <div
-          className={`md:hidden ${
-            hamburgerClicked ? "translate-x-0" : "translate-x-full"
-          } fixed top-0 right-0 w-full h-full transition-transform duration-300 bg-white z-50 `}
+          className={`md:hidden fixed top-0 right-0 w-full h-full transition-transform duration-300 bg-white z-50 ${
+            hamburgerClicked
+              ? "translate-x-0"
+              : "translate-x-full pointer-events-none opacity-0"
+          }`}
         >
           <button
             onClick={() => sethamburgerClicked(false)}
