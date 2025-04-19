@@ -8,7 +8,7 @@ import { CiMenuFries } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
 import { CartContext } from "../Contexts/CartContext";
 import { UserContext } from "../Contexts/UserContext";
-import Logout from "../Authentications/logout";
+import Logout from "../Authentications/Logout.jsx";
 import { SearchContext } from "../Contexts/SearchContext";
 
 const Navbar = () => {
