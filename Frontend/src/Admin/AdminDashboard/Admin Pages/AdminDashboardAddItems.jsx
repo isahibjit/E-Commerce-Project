@@ -22,6 +22,7 @@ const AdminDashboardAddItems = () => {
   const fileInputs = useRef([]);
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       if (!images.some((image) => image !== null)) {
         toast.error("At least one image should be added!");
         return;
@@ -32,7 +33,6 @@ const AdminDashboardAddItems = () => {
         { withCredentials: true }
       );
 
-      setIsLoading(true);
       if (response.status === 201) {
         const productId = response.data.productId;
         let formData = new FormData();
@@ -237,7 +237,7 @@ const AdminDashboardAddItems = () => {
             <div>
               <button
                 type="submit"
-                className="cursor-pointer btn btn-black w-1/3 rounded-lg bg-black text-white border-black"
+                className="cursor-pointer btn btn-black w-1/3  rounded-lg bg-black text-white border-black"
               >
                 {isLoading ? (
                   <svg
@@ -261,7 +261,7 @@ const AdminDashboardAddItems = () => {
                     ></path>
                   </svg>
                 ) : (
-                  <p>ADD</p>
+                  "ADD"
                 )}
               </button>
               

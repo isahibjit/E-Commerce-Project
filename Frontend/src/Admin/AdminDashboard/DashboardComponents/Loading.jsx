@@ -4,7 +4,7 @@ import "ldrs/react/Hourglass.css";
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center w-full  bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="flex items-center justify-center w-full h-screen  bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="text-center space-y-6">
         <h1 className="text-3xl md:text-5xl font-bold text-blue-900 animate-pulse drop-shadow-md">
           Hang tight! 🚀
