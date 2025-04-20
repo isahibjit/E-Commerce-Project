@@ -10,7 +10,7 @@ import { CartContext } from "../../Contexts/CartContext.jsx";
 import Review from "./Components/Review.jsx";
 import ProductsPageCardSkeleton from "./Components/ProductsPageCardSkeleton.jsx";
 import InnerImageZoom from 'react-inner-image-zoom'
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import 'react-inner-image-zoom/lib/style.css';
 const ProductPage = () => {
   const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   const navigate = useNavigate();
