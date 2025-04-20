@@ -28,7 +28,7 @@ const AdminHeader = ({ admin }) => {
   return (
     <div className="border-[1px] border-gray-300">
       <div className="flex   flex-wrap navbar-start w-[80%]  mx-auto items-center justify-between">
-        <Link to="admin/dashboard">
+        <Link to="">
         <img src={adminLogo} className="w-40 md:w-52" alt="Admin Logo Extrobuy Admin Panel" />
         </Link>
         <div className="flex gap-2 items-center">
