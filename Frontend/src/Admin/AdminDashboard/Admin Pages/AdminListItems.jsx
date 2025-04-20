@@ -4,8 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FaRupeeSign } from "react-icons/fa";
-import { Grid } from "ldrs/react";
-import "ldrs/react/Grid.css";
+
 import DeleteConfirmationModal from "../DashboardComponents/DeleteConfirmationModal";
 import AdminProductUpdateModal from "../DashboardComponents/AdminProductUpdateModal";
 import AdminListItemsSkeletons from "./Components/AdminListItemsSkeleton";
@@ -97,9 +96,9 @@ const AdminListItems = () => {
 
         {/* Header */}
         <div className="flex items-center border bg-white my-2 shadow-md text-lg text-gray-700 px-2 font-semibold">
-          <div className="w-[15%]">Image</div>
+          <div className="w-[20%]">Image</div>
           <div className="w-[35%]">Name</div>
-          <div className="w-[20%]">Category</div>
+          <div className="w-[30%]">Category</div>
           <div className="w-[15%]">Price</div>
           <div className="w-[15%] hidden md:block">Action</div>
         </div>
