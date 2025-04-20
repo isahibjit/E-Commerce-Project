@@ -2,6 +2,8 @@ import db from "../Config/db.js"
 import bcrypt from "bcrypt"
 import { generateResetToken, verifyToken } from "../Config/JWT.js"
 import { sendRegisteredUser, sendResetEmail } from "../utils/nodemailer.js"
+import dotenv from "dotenv"
+dotenv.config()
 export const registerUserService = async (userData) => {
 
     try {
@@ -27,7 +29,7 @@ export const forgotPasswordService =async (email)=>{
           }
 
         const token = generateResetToken(email)
-        const resetLink = `http://localhost:5173/reset-password?token=${token}`
+        const resetLink = `${process.env.FRONTEND_URL}reset-password?token=${token}`
         try {
             const  info =  await sendResetEmail(email,resetLink)
             return {success : true, message : "Email is sent to your email",info}

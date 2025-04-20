@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer"
-
+import dotenv from "dotenv"
+dotenv.config()
 export const sendResetEmail = async (email, resetLink) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -127,7 +128,7 @@ export const sendRegisteredUser = async (email, name) => {
                   <li>🔥 Go Super Saiyan with fast delivery</li>
                 </ul>
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="http://localhost:5173/" style="background-color: #039be5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
+                  <a href="${process.env.FRONTEND_URL}" style="background-color: #039be5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
                     Start Shopping Like a Saiyan
                   </a>
                 </div>
@@ -142,7 +143,7 @@ export const sendRegisteredUser = async (email, name) => {
             <tr>
               <td style="background-color: #212121; color: #bbb; text-align: center; padding: 20px; font-size: 13px;">
                 © 2025 ExtroBuy Inc. | All Rights Reserved<br/>
-                <a href="http://localhost:5173/contact" style="color: #bbb; text-decoration: none;">Contact Us</a>
+                <a href="${process.env.FRONTEND_URL}/contact" style="color: #bbb; text-decoration: none;">Contact Us</a>
               </td>
             </tr>
           </table>
@@ -244,7 +245,7 @@ export const sendOrderConfirmationEmail = async (email, name, order) => {
     <p style="margin-top: 20px;">We’ll notify you once your order is on its way. 🚚</p>
 
     <div class="footer">
-      If you have any questions, reply to this email or <a href="http://localhost:5173/contact">contact us here</a>.<br/>
+      If you have any questions, reply to this email or <a href="${process.env.FRONTEND_URL}contact">contact us here</a>.<br/>
       — Team ExtroBuy
     </div>
   </div>
@@ -339,7 +340,7 @@ export const sendOrderUpdateEmail = async (order) => {
                       </p>
 
                       <div style="text-align: center; margin: 30px 0;">
-                        <a href="http://localhost:5173/orders" style="background-color: #009688; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
+                        <a href="${process.env.FRONTEND_URL}orders" style="background-color: #009688; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
                           🕶 View Your Order Like a Boss
                         </a>
                       </div>
@@ -355,7 +356,7 @@ export const sendOrderUpdateEmail = async (order) => {
                   <tr>
                     <td style="background-color: #424242; color: #ddd; text-align: center; padding: 20px; font-size: 12px;">
                       🚨 ExtroBuy is powered by Sahibjit Singh! ☕ | All Rights Reserved 2025<br/>
-                      <a href="http://localhost:5173/contact" style="color: #ddd; text-decoration: none;">Contact Us</a>
+                      <a href="${process.env.FRONTEND_URL}contact" style="color: #ddd; text-decoration: none;">Contact Us</a>
                     </td>
                   </tr>
 
