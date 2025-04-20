@@ -17,18 +17,29 @@ const Navbar = () => {
   const { cartItems, getSubTotalPrice } = useContext(CartContext);
   const { user } = useContext(UserContext);
   const { setShowSearch } = useContext(SearchContext);
-  console.log(user);
 
-  useEffect(() => {
-    if (hamburgerClicked) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  
-    
-  }, [hamburgerClicked]);
-  
+
+
+
+   // ✅ Fixing the useEffect for viewport width handling
+   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 800) {
+        document.body.style.overflowX = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
+    };
+    console.log("Window resized:", window.innerWidth);
+    handleResize(); // Check once on mount
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.body.style.overflow = "auto"; // Restore when component unmounts
+    };
+  }, []);
+
   return (
     <div className="text-sm  font-medium text-gray-800  ">
       <div className=" justify-between items-center flex   py-2 mx-auto  ">
