@@ -1,6 +1,7 @@
 import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
+import dotenv from "dotenv"
+dotenv.config()
 export const createCheckoutSession = async (req, res) => {
     const { cart: productData, ...userData } = req.body
 
@@ -24,8 +25,8 @@ export const createCheckoutSession = async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: "payment",
-            success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: "http://localhost:5173/cancel",
+            success_url: `${process.env.FRONTEND_URL}success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.FRONTEND_URL}cancel`,
             metadata : {
                 userData  : JSON.stringify(userData)
             }
