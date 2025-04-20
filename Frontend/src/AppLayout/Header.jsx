@@ -26,16 +26,16 @@ const Navbar = () => {
       document.body.style.overflow = "auto";
     }
   
-    return () => {
-      document.body.style.overflow = "auto";
-    };
+    
   }, [hamburgerClicked]);
   
   return (
     <div className="text-sm  font-medium text-gray-800  ">
       <div className=" justify-between items-center flex   py-2 mx-auto  ">
         <div className="flex items-center ">
-          <img className="w-48   cursor-pointer" src={logo} alt="" />
+         <Link to="/">
+          <img className="w-48   cursor-pointer" src={logo} alt="logo extrobuy shop bold. live loud" />
+         </Link>
         </div>
         <ul className="lg:flex hidden gap-5  ">
           <li className="relative group cursor-pointer">
@@ -235,7 +235,7 @@ const Navbar = () => {
             <span>Back</span>
           </button>
 
-          <ul className="flex flex-col   gap-8 text-xl max-w-96  mx-auto mt-8  ">
+          <ul className="flex flex-col   gap-8 text-xl max-w-96 px-4  mx-auto mt-8  ">
             <li
               onClick={() => sethamburgerClicked(false)}
               className="relative group cursor-pointer"

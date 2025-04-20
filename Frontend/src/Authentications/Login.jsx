@@ -45,7 +45,7 @@ const Login = () => {
   }, [errors]);
 
   return (
-    <div className="flex flex-col items-center min-h-[65vh] lg:p-32 ">
+    <div className="flex flex-col items-center min-h-[65vh] justify-center ">
       <div className="relative">
         <h1 className="text-4xl  p-4 text-gray-800 font-serif text-center ">
           Login
@@ -54,10 +54,11 @@ const Login = () => {
       </div>
       <form
         action=""
-        className="flex    flex-col gap-4 items-center text-gray-800 "
+        className="flex flex-col gap-4 items-center text-gray-800 md:w-96 w-full "
         onSubmit={handleSubmit(onSubmit)}
       >
-        <input
+       <div className="w-full">
+       <input
           type="email"
           className="form-input"
           placeholder="Email"
@@ -71,7 +72,8 @@ const Login = () => {
           })}
         />
 
-        <div className="flex flex-col justify-center gap-2">
+       </div>
+        <div className="flex flex-col justify-center gap-2  w-full">
           <input
             type="password"
             className="form-input"

@@ -37,7 +37,7 @@ body{
   font-weight : 500;
 }
 .form-input {
-  @apply border outline-none w-96  text-xl rounded-lg p-2
+  @apply border outline-none md:w-96 w-full  text-xl rounded-lg p-2
 }
 .admin-dashboard-list{
   @apply cursor-pointer w-2/3 md:w-[90%] rounded-sm font-semibold hover:bg-blue-400 transition-all  duration-200 md:border-r-0 justify-start flex  border-[1px] border-gray-300

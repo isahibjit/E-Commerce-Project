@@ -90,30 +90,30 @@ const Home = () => {
           </p>
         </div>
         <Bestsellers />
-        <div className="flex md:flex-row flex-col md:gap-4 gap-8 justify-around items-center shadow-md p-8 bg-[#fff] rounded-xl  max-w-[80%] mx-auto">
+        <div className="flex md:flex-row flex-col md:gap-4 gap-8 justify-around items-center shadow-md p-8 bg-[#fff] rounded-xl  md:max-w-[90%] mx-auto">
           <div className="flex flex-col gap-1 items-center ">
-            <FaExchangeAlt className="md:text-5xl" />
-            <h1 className="text-gray-800 font-semibold">
+            <FaExchangeAlt className="md:text-4xl" />
+            <h1 className="text-gray-800 font-semibold md:text-md text-sm ">
               Easy Exchange Policy
             </h1>
-            <p className="text-gray-500 font-semibold">
+            <p className="text-gray-500 font-semibold text-center">
               We offer hassle free exchange policy
             </p>
           </div>
           <div className="flex flex-col gap-1 items-center">
-            <FaCheckDouble className="md:text-5xl" />
-            <h1 className="text-gray-800 font-semibold">7 Days Policy</h1>
-            <p className="text-gray-500 font-semibold">
+            <FaCheckDouble className="md:text-4xl" />
+            <h1 className="text-gray-800 font-semibold md:text-md text-sm">7 Days Policy</h1>
+            <p className="text-gray-500 font-semibold text-center">
               We provide 7 days free return policy
             </p>
           </div>
           <div className="flex flex-col gap-1 items-center">
-            <RiCustomerServiceFill className="md:text-5xl" />
-            <h1 className="text-gray-800 font-semibold">
+            <RiCustomerServiceFill className="md:text-4xl" />
+            <h1 className="text-gray-800 font-semibold md:text-md text-sm">
               Best Customer Support
             </h1>
-            <p className="text-gray-500 font-semibold">
-              we provide 24/7 customer support
+            <p className="text-gray-500 font-semibold text-center">
+              We provide 24/7 customer support
             </p>
           </div>
         </div>

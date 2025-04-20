@@ -19,7 +19,7 @@ const CreateAccountForm = () => {
       const response = await axios.post(
         `${BACKEND_API}api/user/register`,
         data,
-        {withCredentials : true}
+        { withCredentials: true }
       );
       console.log(response);
       if (response.status === 201) {
@@ -52,7 +52,7 @@ const CreateAccountForm = () => {
   }, [errors]);
 
   return (
-    <div className="flex flex-col min-h-[65vh] items-center">
+    <div className="flex flex-col min-h-[65vh] items-center justify-center">
       <div className="relative">
         <h1 className="text-4xl p-4 text-gray-800  font-serif text-center ">
           Sign Up
@@ -61,37 +61,40 @@ const CreateAccountForm = () => {
       </div>
       <form
         action=""
-        className="flex   flex-col gap-4 items-center "
+        className="flex   flex-col gap-4 items-center  sm:w-96 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <input
-          type="text"
-          className="form-input"
-          placeholder="Name"
-          {...register("name", {
-            required: "Name is Required",
-            minLength: {
-              value: 3,
-              message: "Name must be atleast 3 characters!",
-            },
-          })}
-        />
+        <div className="w-full">
+          <input
+            type="text"
+            className="form-input"
+            placeholder="Name"
+            {...register("name", {
+              required: "Name is Required",
+              minLength: {
+                value: 3,
+                message: "Name must be atleast 3 characters!",
+              },
+            })}
+          />
+        </div>
+        <div className="w-full">
+          <input
+            type="email"
+            className="form-input"
+            placeholder="Email"
+            required
+            {...register("email", {
+              required: "Email is required!",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid Email Format",
+              },
+            })}
+          />
+        </div>
 
-        <input
-          type="email"
-          className="form-input"
-          placeholder="Email"
-          required
-          {...register("email", {
-            required: "Email is required!",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Invalid Email Format",
-            },
-          })}
-        />
-
-        <div className="flex flex-col justify-center gap-2">
+        <div className="flex flex-col justify-center gap-2 w-full">
           <input
             type="password"
             className="form-input"

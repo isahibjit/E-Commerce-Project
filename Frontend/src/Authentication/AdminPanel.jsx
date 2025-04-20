@@ -48,9 +48,9 @@ const AdminPanel = () => {
   }, [errors]);
 
   return (
-    <div className="min-h-[65vh]">
-    <div className="flex flex-col items-center lg:max-w-[50%]  px-8 md:py-8 py-32 shadow-2xl mx-auto ">
-      <div className="relative">
+    <div className="border-[1px] border-gray-400 border-x-0 ">
+    <div className="flex flex-col items-center lg:max-w-[50%] justify-center min-h-[65vh]   md:px-8 md:py-8 py-32  mx-auto ">
+    <div className="relative">
         <h1 className="text-4xl  p-4 text-gray-800 font-serif text-center ">
           Admin Panel
         </h1>
@@ -58,12 +58,13 @@ const AdminPanel = () => {
       </div>
       <form
         action=""
-        className="flex    flex-col gap-4 items-center text-gray-800 "
+        className="flex    flex-col gap-4 items-center text-gray-800 sm:w-96 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
        
 
-        <input
+       <div className="w-full">
+       <input
           type="email"
           className="form-input"
           placeholder="Enter Your Email Address"
@@ -76,8 +77,9 @@ const AdminPanel = () => {
             },
           })}
         />
+       </div>
 
-        <div className="flex flex-col justify-center gap-2">
+        <div className="flex flex-col justify-center gap-2 w-full">
           <input
             type="password"
             className="form-input"
