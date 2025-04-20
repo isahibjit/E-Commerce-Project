@@ -17,29 +17,23 @@ const Navbar = () => {
   const { cartItems, getSubTotalPrice } = useContext(CartContext);
   const { user } = useContext(UserContext);
   const { setShowSearch } = useContext(SearchContext);
-
-
-
-
-   // ✅ Fixing the useEffect for viewport width handling
-   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 800) {
-        document.body.style.overflowX = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-    };
-    console.log("Window resized:", window.innerWidth);
-    handleResize(); // Check once on mount
-    window.addEventListener("resize", handleResize);
-
+  console.log(user);
+  useEffect(() => {
+    if (hamburgerClicked) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // add this line
+    } else {
+      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto"; // add this line
+    }
+  
     return () => {
-      window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = "auto"; // Restore when component unmounts
+      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
     };
-  }, []);
-
+  }, [hamburgerClicked]);
+  
+  
   return (
     <div className="text-sm  font-medium text-gray-800  ">
       <div className=" justify-between items-center flex   py-2 mx-auto  ">
