@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import sizes from "../../Admin/AdminDashboard/DashboardComponents/Sizes.js";
 import { FaAngleDown, FaRupeeSign } from "react-icons/fa";
-import { EasyZoomOnHover } from "easy-magnify";
 import RelatedProducts from "./RelatedProducts";
 import { CartContext } from "../../Contexts/CartContext.jsx";
 import Review from "./Components/Review.jsx";
 import ProductsPageCardSkeleton from "./Components/ProductsPageCardSkeleton.jsx";
 import InnerImageZoom from 'react-inner-image-zoom'
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 const ProductPage = () => {
   const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   const navigate = useNavigate();
@@ -86,11 +86,13 @@ const ProductPage = () => {
 
             <div className="max-w-[600px] z-20 ">
               {product?.product_img_urls?.length > 0 && isImageLoaded && (
-                  <InnerImageZoom   
-                  src = {`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fill,g_auto,w_600,h_600,q_100,b_rgb:ffffff/v1743870766/${product.product_img_urls[currentImage]}`}
-                  zoomSrc = {`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fill,g_auto,w_1200,h_1200,q_100/v1743870766/${product.product_img_urls[currentImage]}`}
-                
+                <InnerImageZoom
+                src={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fill,g_auto,w_600,h_600,q_100,b_rgb:ffffff/v1743870766/${product.product_img_urls[currentImage]}`}
+                zoomSrc={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fill,g_auto,w_1200,h_1200,q_100/v1743870766/${product.product_img_urls[currentImage]}`}
+                zoomType="hover" // Or "click" if you want both desktop and mobile
+                zoomPreload={true}
               />
+              
               )}
               {product?.product_img_urls?.length > 0 && !isImageLoaded && (
                 <div className="flex items-center justify-center h-96 w-full border border-gray-300 rounded">
