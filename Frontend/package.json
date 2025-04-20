@@ -16,7 +16,6 @@
     "@tanstack/react-query": "^5.73.3",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
-    "easy-magnify": "^1.1.4",
     "ldrs": "^1.1.6",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
