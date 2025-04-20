@@ -25,8 +25,8 @@ export const createCheckoutSession = async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: "payment",
-            success_url: `${process.env.FRONTEND_URL}success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.FRONTEND_URL}cancel`,
+            success_url: `${process.env.FRONTEND_URL}success?session_id={CHECKOUT_SESSION_ID}` || "https://e-commerce-project-frontend-3h97.onrender.com/success?session_id={CHECKOUT_SESSION_ID}`,",
+            cancel_url: `${process.env.FRONTEND_URL}cancel` || "https://e-commerce-project-frontend-3h97.onrender.com/cancel",
             metadata : {
                 userData  : JSON.stringify(userData)
             }
