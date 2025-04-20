@@ -84,7 +84,7 @@ const ProductPage = () => {
               ))}
             </div>
 
-            <div className="max-w-[600px] z-20 ">
+            <div className="w-[600px] z-20 ">
               {product?.product_img_urls?.length > 0 && isImageLoaded && (
                 <InnerImageZoom
                 src={`https://res.cloudinary.com/sunnysingh78376/image/upload/c_fill,g_auto,w_600,h_600,q_100,b_rgb:ffffff/v1743870766/${product.product_img_urls[currentImage]}`}
