@@ -3,7 +3,7 @@
 Extrobuy is a full-stack e-commerce web application built using the **PERN stack** (PostgreSQL, Express.js, React, Node.js). This platform allows users to browse, search, and purchase a variety of **clothing products** online. It offers a clean UI, secure backend, and seamless user experience tailored for fashion enthusiasts.
 
 ---
-## Link -> https://e-commerce-project-frontend-3h97.onrender.com/
+## Link -> <a target="_blank" href="https://e-commerce-project-frontend-3h97.onrender.com/"> Visit Extrobuy </a>
 ## ✨ Features
 
 - 🛒 User-friendly product browsing and cart system  
