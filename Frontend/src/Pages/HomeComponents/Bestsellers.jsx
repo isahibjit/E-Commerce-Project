@@ -32,7 +32,7 @@ const Bestsellers = () => {
   }, []);
 
   return (
-    <div className="grid  justify-center  2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 ">
+    <div className="grid  justify-center gap-6 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 ">
       {isLoading ? (<>
      {Array.from({length : 12}).map((_, idx) => (
         <ProductCardSkeleton key={idx} />

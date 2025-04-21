@@ -32,18 +32,24 @@ const LatestCollections = () => {
   }, []);
 
   return (
-    <div className="grid  justify-center  2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 ">
-       {isLoading ? (<>
-     {Array.from({length : 12}).map((_, idx) => (
+   <div className="grid justify-center gap-6 px-4 
+                sm:grid-cols-1 
+                md:grid-cols-2 
+                lg:grid-cols-3 
+                2xl:grid-cols-4">
+  {isLoading ? (
+    <>
+      {Array.from({ length: 12 }).map((_, idx) => (
         <ProductCardSkeleton key={idx} />
-     ))}
-      </>
-      ) : (
-        products?.map((product, idx) => (
-          <ProductCard key={idx} id={idx} product={product} />
-        ))
-      )}
-    </div>
+      ))}
+    </>
+  ) : (
+    products?.map((product, idx) => (
+      <ProductCard key={idx} id={idx} product={product} />
+    ))
+  )}
+</div>
+
   );
 };
 

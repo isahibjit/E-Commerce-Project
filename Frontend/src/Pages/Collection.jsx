@@ -132,7 +132,7 @@ const Collection = () => {
         />
         <div className="w-full ">
           <SortCollection handleSortChange={handleSortChange} />
-          <div className="grid   justify-center  2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
+          <div className="grid gap-6  justify-center  2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
             {isLoading ? (
               <>
                 {Array.from({ length: 8 }).map((_, idx) => (
