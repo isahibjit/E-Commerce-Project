@@ -143,18 +143,52 @@ npm run dev
 ---
 
 ## 💡 Future Improvements
+-AI Chatbot: Integrate an AI-powered chatbot using xAI’s Grok API to provide real-time customer support, product recommendations, and order tracking. Features include conversational commerce, multilingual support, and admin assistance for managing queries.
+- Implement advanced search filters for faster product discovery.
+- Add support for multiple payment gateways beyond Stripe.
+- Introduce a wishlist feature for users to save favorite products.
+- Enhance mobile responsiveness for a better user experience on smaller screens.
 
-- Admin dashboard UI
-- Email verification and order tracking
-- Product filters and sorting
-- Wishlist and reviews
-- Mobile app version
 
 ---
 
 ## 📸 Screenshots
 
-*Coming Soon...*
+### Home Page
+![Home Page](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381392/Screenshot_2025-04-23_093405_a0eeho.png)
+*The landing page of Extrobuy showcasing the latest arrivals and bestsellers.*
+
+### Latest Arrivals
+![Latest Arrivals](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093417_cbutnp.png)
+*Highlighting the newest clothing items available for purchase.*
+
+### All Collections
+![All Collections](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093427_hfx9c6.png)
+*Browse through all clothing collections with filtering options.*
+
+### About Us
+![About Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093112_su4ptp.png)
+*Learn more about Extrobuy and what we offer.*
+
+### Contact Us
+![Contact Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093237_u5zax7.png)
+*Get in touch with us through various contact methods.*
+
+### Admin Dashboard
+![Admin Dashboard](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093251_j7wqk6.png)
+*Admin panel for managing products, orders, and customers.*
+
+### Add Items (Admin)
+![Add Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093304_vdmr9g.png)
+*Interface for admins to add new clothing products.*
+
+### List Items (Admin)
+![List Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093222_adjtqc.png)
+*View and manage the list of all products.*
+
+### Orders (Admin)
+![Orders](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093441_fiu49k.png)
+*Admin view of customer orders and their status.*
 
 ---
 
