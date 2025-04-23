@@ -159,11 +159,11 @@ npm run dev
 
 ### Admin Dashboard
 ![Home Page](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381392/Screenshot_2025-04-23_093405_a0eeho.png)
-*The landing page of Extrobuy showcasing the latest arrivals and bestsellers.*
+*Admin panel for managing products, orders, and customers.*
 
 ### Add Items (Admin)
 ![Latest Arrivals](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093417_cbutnp.png)
-*Highlighting the newest clothing items available for purchase.*
+*Interface for admins to add new clothing products.*
 
 ### Orders (Admin)
 ![Orders](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093441_fiu49k.png)
@@ -172,28 +172,27 @@ npm run dev
 
 ### List Items
 ![All Collections](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093427_hfx9c6.png)
-*Browse through all clothing collections with filtering options.*
-
+*View and manage the list of all products.*
 ### Latest Arrivals
 ![About Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093112_su4ptp.png)
-*Learn more about Extrobuy and what we offer.*
+
+*The landing page of Extrobuy showcasing the latest arrivals and bestsellers.*
 
 ### Collections
 ![Contact Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093237_u5zax7.png)
-*Get in touch with us through various contact methods.*
+*Browse through all clothing collections with filtering options.*
 
 ### About us
 ![Admin Dashboard](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093251_j7wqk6.png)
-*Admin panel for managing products, orders, and customers.*
+*Learn more about Extrobuy and what we offer.*
 
 ### Contact us
 ![Add Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093304_vdmr9g.png)
-*Interface for admins to add new clothing products.*
+*Get in touch with us through various contact methods.*
 
 ### Product Cards
 ![List Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093222_adjtqc.png)
-*View and manage the list of all products.*
-
+*Highlighting the newest clothing items available for purchase.*
 
 ---
 
