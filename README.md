@@ -1,9 +1,14 @@
+```markdown
 # 🛍️ Extrobuy
 
 Extrobuy is a full-stack e-commerce web application built using the **PERN stack** (PostgreSQL, Express.js, React, Node.js). This platform allows users to browse, search, and purchase a variety of **clothing products** online. It offers a clean UI, secure backend, and seamless user experience tailored for fashion enthusiasts.
 
 ---
-## Link -> <a target="_blank" href="https://e-commerce-project-frontend-3h97.onrender.com/">Visit Extrobuy </a>
+
+## 🔗 Link  
+👉 <a target="_blank" href="https://e-commerce-project-frontend-3h97.onrender.com/">Visit Extrobuy</a>
+
+---
 
 ## ✨ Features
 
@@ -14,31 +19,38 @@ Extrobuy is a full-stack e-commerce web application built using the **PERN stack
 - 💳 Integrated Stripe Checkout for secure payments  
 - 📈 Admin dashboard for managing products (CRUD operations)  
 - 🗃️ PostgreSQL database integration for storing products and user data  
+- 🧠 Session persistence using `express-session` with `pg-simple`  
 - ⚙️ RESTful API built with Express.js and Node.js  
-- 💡 Responsive frontend built with React  
+- 💡 Responsive frontend built with React and styled using **Tailwind CSS** and **DaisyUI**
 
 ---
 
 ## 🧱 Tech Stack
 
 ### 🖥️ Frontend
+
 - **React.js**
 - **React Router**
 - **Axios**
-- **Tailwind CSS** (or any styling library you used)
+- **Tailwind CSS**
+- **DaisyUI**
 
 ### ⚙️ Backend
+
 - **Node.js**
 - **Express.js**
 - **bcrypt** for password hashing
 - **jsonwebtoken (JWT)** for authentication
+- **express-session** with **pg-simple** for session storage
 
 ### 🗃️ Database
+
 - **PostgreSQL**
-- **pg** (PostgreSQL client for Node)
+- **pg** (PostgreSQL client for Node.js)
 
 ### 💳 Payment
-- **Stripe API** for checkout and payments
+
+- **Stripe API** for checkout and secure payments
 
 ---
 
@@ -46,40 +58,40 @@ Extrobuy is a full-stack e-commerce web application built using the **PERN stack
 
 ```
 EXTROBUY/
-├── Backend/                    # Express.js backend
-│   ├── Config/                 # Configuration files (DB, etc.)
-│   ├── Controller/             # Route controllers
-│   ├── Middlewares/           # Express middlewares
-│   ├── Routes/                 # API route definitions
-│   ├── Services/               # Business logic layer
-│   ├── Stripe/                 # Stripe payment integration
-│   ├── Utils/                  # Utility/helper functions
-│   ├── temp/                   # Make sure you have a temp folder inside public !!!!
-│   ├── .env                    # Environment variables for backend
+├── Backend/
+│   ├── Config/
+│   ├── Controller/
+│   ├── Middlewares/
+│   ├── Routes/
+│   ├── Services/
+│   ├── Stripe/
+│   ├── Utils/
+│   ├── temp/
+│   ├── .env
 │   ├── package.json
 │   ├── package-lock.json
-│   └── server.js               # Entry point of backend server
+│   └── server.js
 │
-├── Frontend/                   # React frontend
+├── Frontend/
 │   ├── public/
 │   ├── src/
-│   │   ├── Admin/              # Admin panel components
-│   │   ├── AppLayout/          # Layout components for pages
-│   │   ├── assets/             # Static assets (images, etc.)
-│   │   ├── Authentication/     # Login, Signup etc.
-│   │   ├── Authentications/    # Possibly advanced auth utils
-│   │   ├── Cart/               # Cart features
-│   │   ├── Contexts/           # React contexts for state management
-│   │   ├── Layouts/            # Shared layout components
-│   │   ├── Orders/             # Orders management
-│   │   ├── Pages/              # Different page components
-│   │   ├── utils/              # Frontend utility functions
+│   │   ├── Admin/
+│   │   ├── AppLayout/
+│   │   ├── assets/
+│   │   ├── Authentication/
+│   │   ├── Authentications/
+│   │   ├── Cart/
+│   │   ├── Contexts/
+│   │   ├── Layouts/
+│   │   ├── Orders/
+│   │   ├── Pages/
+│   │   ├── utils/
 │   │   ├── App.css
 │   │   ├── App.jsx
 │   │   ├── index.css
 │   │   ├── index.html
-│   │   └── main.jsx            # React root render
-│   ├── .env                    # Environment variables for frontend
+│   │   └── main.jsx
+│   ├── .env
 │   ├── .gitignore
 │   ├── eslint.config.js
 │   ├── package.json
@@ -87,8 +99,7 @@ EXTROBUY/
 │   └── README.md
 │
 ├── .gitignore
-├── README.md                   # Project documentation
-
+├── README.md
 ```
 
 ---
@@ -106,19 +117,21 @@ cd extrobuy
 
 ```bash
 cd server
-npm run dev
+npm install
 ```
 
-- Add a `.env` file with the following variables:
+- Create a `.env` file with the following variables:
 
-```
+```env
 PORT=5000
 DATABASE_URL=your_postgres_connection_string
 JWT_SECRET=your_jwt_secret
 STRIPE_SECRET_KEY=your_stripe_key
+SESSION_SECRET=your_session_secret
 ```
 
 - Start the backend server:
+
 ```bash
 npm run dev
 ```
@@ -135,62 +148,51 @@ npm run dev
 
 ## 🧪 Testing
 
-- Create test users and login  
+- Create test users and log in  
 - Add clothing products to the cart  
-- Try checkout with Stripe test card  
-- Admin can manage products through backend API or dashboard (if available)
+- Proceed to checkout using Stripe test cards  
+- Use the admin dashboard to add or manage products and view orders  
 
 ---
 
 ## 💡 Future Improvements
--AI Chatbot: Integrate an AI-powered chatbot using xAI’s Grok API to provide real-time customer support, product recommendations, and order tracking. Features include conversational commerce, multilingual support, and admin assistance for managing queries.
-- Implement advanced search filters for faster product discovery.
-- Add support for multiple payment gateways beyond Stripe.
-- Introduce a wishlist feature for users to save favorite products.
-- Enhance mobile responsiveness for a better user experience on smaller screens.
 
+- 🤖 **AI Chatbot**: Integrate xAI’s **Grok API** for real-time support, recommendations, and tracking  
+- 🔍 Advanced product search filters  
+- 💰 Add more payment gateway options  
+- ❤️ Wishlist feature  
+- 📱 Enhanced responsiveness for mobile devices  
 
 ---
 
 ## 📸 Screenshots
 
-### Admin Dashboard
-![Home Page](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381392/Screenshot_2025-04-23_093405_a0eeho.png)
-*The landing page of Extrobuy showcasing the latest arrivals and bestsellers.*
+### Admin Dashboard  
+![Admin Dashboard](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381392/Screenshot_2025-04-23_093405_a0eeho.png)
 
-### Add Items (Admin)
-![Latest Arrivals](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093417_cbutnp.png)
-*Highlighting the newest clothing items available for purchase.*
+### Add Items (Admin)  
+![Add Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093417_cbutnp.png)
 
-### Orders (Admin)
+### Orders (Admin)  
 ![Orders](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093441_fiu49k.png)
-*Admin view of customer orders and their status.*
 
-
-### List Items
+### List Items  
 ![All Collections](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093427_hfx9c6.png)
-*Browse through all clothing collections with filtering options.*
 
-### Latest Arrivals
-![About Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093112_su4ptp.png)
-*Learn more about Extrobuy and what we offer.*
+### Latest Arrivals  
+![Latest Arrivals](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093112_su4ptp.png)
 
-### Collections
-![Contact Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093237_u5zax7.png)
-*Get in touch with us through various contact methods.*
+### Collections  
+![Collections](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381391/Screenshot_2025-04-23_093237_u5zax7.png)
 
-### About us
-![Admin Dashboard](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093251_j7wqk6.png)
-*Admin panel for managing products, orders, and customers.*
+### About Us  
+![About Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093251_j7wqk6.png)
 
-### Contact us
-![Add Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093304_vdmr9g.png)
-*Interface for admins to add new clothing products.*
+### Contact Us  
+![Contact Us](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093304_vdmr9g.png)
 
-### Product Cards
-![List Items](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093222_adjtqc.png)
-*View and manage the list of all products.*
-
+### Product Cards  
+![Product Cards](https://res.cloudinary.com/sunnysingh78376/image/upload/v1745381390/Screenshot_2025-04-23_093222_adjtqc.png)
 
 ---
 
@@ -199,13 +201,11 @@ npm run dev
 **Sahibjeet Singh**  
 BCA Graduate, GNDU  
 Aspiring Software Engineer  
-[LinkedIn](#) | [Portfolio](#) 
+[LinkedIn](#) | [Portfolio](#)
 
 ---
 
 ## 📜 License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
----
-
+```
