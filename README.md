@@ -25,7 +25,7 @@ Extrobuy is a full-stack e-commerce web application built using the **PERN stack
 - **React.js**
 - **React Router**
 - **Axios**
-- **Tailwind CSS** (or any styling library you used)
+- **Tailwind CSS** (Daisy UI for cards)
 
 ### ⚙️ Backend
 
