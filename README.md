@@ -108,7 +108,7 @@ cd extrobuy
 ### 2. Setup Backend
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
