@@ -81,7 +81,7 @@ export const addOrdersService = async (userData, cartData, paymentInfo, sessionI
             await db.query(itemQuery, itemValues);
             const updateStockQuery = `
             UPDATE products
-            SET quantity = quantity - $1
+            SET stock_quantity = stock_quantity - $1
             WHERE product_id = $2 AND size = $3 AND size>= $1
             `
             const updateStockValue = [
