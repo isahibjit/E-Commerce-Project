@@ -28,7 +28,6 @@ app.use(
   cors({
     origin: "https://e-commerce-project-frontend-3h97.onrender.com", // Allow requests from your frontend
     credentials: true, // Allow cookies to be sent,
-    accessControlAllowOrigin: true,
   })
 );
 app.use(morgan("dev"));
