@@ -137,7 +137,10 @@ export const getOrdersService = async (userId) => {
         o.total_amount, 
         o.created_at, 
         o.order_status, 
-        o.payment_method;
+        o.payment_method
+    ORDER BY 
+        o.created_at DESC;
+
     `,
             [userId]
         );
