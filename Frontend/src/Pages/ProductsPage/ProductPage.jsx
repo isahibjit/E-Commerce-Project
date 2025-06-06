@@ -24,7 +24,7 @@ const ProductPage = () => {
   const { id } = useParams();
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({size : []});
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchDefaultProduct = async () => {
@@ -157,7 +157,8 @@ console.log("This is array",product.size)
                 <div className="flex flex-col gap-4 md:w-2/3 w-full  ">
                   <label htmlFor="size">Select Size</label>
                   <div className=" grid grid-cols-4 items-center ">
-                    {sizes.map((sizeOption, index) => (
+                    {Array.isArray(product?.size) &&
+                      product.size.map((sizeOption, index) => (
                       <input
                         key={index}
                         type="checkbox"
@@ -168,7 +169,8 @@ console.log("This is array",product.size)
                         checked={size === sizeOption}
                         onChange={() => setSize(sizeOption)}
                       />
-                    ))}
+                    ))
+                    }
                   </div>
                   <div>
                     {product.stock_quantity > 0 ? (
