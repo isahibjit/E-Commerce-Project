@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { data, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import sizes from "../../Admin/AdminDashboard/DashboardComponents/Sizes.js";
@@ -157,7 +157,7 @@ const ProductPage = () => {
                 <div className="flex flex-col gap-4 md:w-2/3 w-full  ">
                   <label htmlFor="size">Select Size</label>
                   <div className=" grid grid-cols-4 items-center ">
-                    {sizes.map((sizeOption, index) => (
+                    {product.size.map((sizeOption, index) => (
                       <input
                         key={index}
                         type="checkbox"
