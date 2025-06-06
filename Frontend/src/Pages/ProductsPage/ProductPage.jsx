@@ -157,7 +157,7 @@ const ProductPage = () => {
                 <div className="flex flex-col gap-4 md:w-2/3 w-full  ">
                   <label htmlFor="size">Select Size</label>
                   <div className=" grid grid-cols-4 items-center ">
-                    {product.size.map((sizeOption, index) => (
+                    {product?.size.map((sizeOption, index) => (
                       <input
                         key={index}
                         type="checkbox"
