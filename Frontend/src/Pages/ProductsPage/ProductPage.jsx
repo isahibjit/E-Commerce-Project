@@ -38,6 +38,7 @@ const ProductPage = () => {
           const data = response.data.product;
           setProduct(data);
           setIsLoading(false);
+          console.log(data)
         } else {
           toast.error("Product not found");
         }
