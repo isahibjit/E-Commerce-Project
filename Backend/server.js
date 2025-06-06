@@ -41,7 +41,7 @@ app.use(
       tableName: "session",  
       createTableIfMissing: true,  
     }),
-    secret: process.env.SESSION_SECRET || "country",  
+    secret: process.env.SESSION_SECRET || "kerala",  
     resave: false,
     saveUninitialized: false,
     cookie: {
