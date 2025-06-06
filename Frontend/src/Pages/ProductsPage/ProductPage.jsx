@@ -57,7 +57,7 @@ const ProductPage = () => {
       setIsImageLoaded(true);
     }
   }, [product, currentImage]);
-
+console.log("This is array",product.size)
   return (
     <div>
       {isLoading ? (
