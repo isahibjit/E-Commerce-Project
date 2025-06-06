@@ -82,14 +82,13 @@ export const addOrdersService = async (userData, cartData, paymentInfo, sessionI
             const updateStockQuery = `
             UPDATE products
             SET stock_quantity = stock_quantity - $1
-            WHERE product_id = $2 AND size = $3 AND size>= $3
+            WHERE product_id = $2 AND stock_quantity >= $1
             `
             const updateStockValue = [
                 item.quantity,
-                item.product_id,
-                item.size
+                item.product_id
             ]
-            const stockResult = await db.query(updateStockQuery,updateStockValue)
+            const stockResult = await db.query(updateStockQuery,updateStockValue);
             if(stockResult.rowCount === 0){
                 throw new Error(`Insufficient stock for product_id: ${item.product_id}, size: ${item.size}`);
             }
