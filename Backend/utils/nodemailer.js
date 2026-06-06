@@ -276,6 +276,53 @@ export const sendOrderConfirmationEmail = async (email, name, order) => {
   }
 };
 
+export const sendAdminNewOrderEmail = async (recipients, order) => {
+  if (!recipients?.length) {
+    return null;
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
+
+  const orderUrl = `${process.env.FRONTEND_URL}admin/dashboard/orders`;
+  const mailOptions = {
+    from: `ExtroBuy <${process.env.GMAIL_USER}>`,
+    to: recipients.join(","),
+    subject: `New order received: #${order.order_id}`,
+    html: `
+      <html>
+        <body style="font-family: Arial, sans-serif; background:#f5f7fb; padding:24px; color:#1f2937;">
+          <div style="max-width:640px; margin:0 auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; padding:24px;">
+            <h2 style="margin:0 0 12px; color:#111827;">New order requires processing</h2>
+            <p style="margin:0 0 20px;">A customer has completed checkout. Review and process this order from the admin dashboard.</p>
+            <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+              <tr><td style="padding:8px 0; font-weight:600;">Order ID</td><td style="padding:8px 0;">#${order.order_id}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Customer</td><td style="padding:8px 0;">${order.first_name} ${order.last_name}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Email</td><td style="padding:8px 0;">${order.email}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Phone</td><td style="padding:8px 0;">${order.phone}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Payment</td><td style="padding:8px 0;">${order.payment_method} / ${order.payment_status}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Total</td><td style="padding:8px 0;">Rs. ${order.total_amount}</td></tr>
+              <tr><td style="padding:8px 0; font-weight:600;">Placed at</td><td style="padding:8px 0;">${new Date(order.created_at).toLocaleString()}</td></tr>
+            </table>
+            <p style="margin:0 0 12px; font-weight:600;">Shipping address</p>
+            <p style="margin:0 0 20px;">${order.street}, ${order.city}, ${order.state} - ${order.pincode}, ${order.country}</p>
+            <a href="${orderUrl}" style="display:inline-block; background:#111827; color:#ffffff; text-decoration:none; padding:12px 18px; border-radius:8px; font-weight:600;">
+              Open Admin Orders
+            </a>
+          </div>
+        </body>
+      </html>
+    `,
+  };
+
+  return transporter.sendMail(mailOptions);
+};
+
 
 
 

@@ -1,4 +1,5 @@
 import db from "../Config/db.js";
+import { notifyAdminsOfNewOrder } from "./adminNotificationService.js";
 import { sendOrderConfirmationEmail, sendOrderUpdateEmail } from "../utils/nodemailer.js";
 
 export const addOrdersService = async (
@@ -110,6 +111,14 @@ export const addOrdersService = async (
         await sendOrderConfirmationEmail(createdOrder.email, createdOrder.first_name, createdOrder);
       } catch (emailError) {
         console.error("Order confirmation email error:", emailError);
+      }
+    }
+
+    if (options.notifyAdmins !== false && createdOrder) {
+      try {
+        await notifyAdminsOfNewOrder(createdOrder);
+      } catch (adminNotificationError) {
+        console.error("Admin order notification error:", adminNotificationError);
       }
     }
 
