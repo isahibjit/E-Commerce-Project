@@ -82,6 +82,7 @@ const Orders = () => {
         orders?.map((order, idx) => (
           <OrderCard
             key={idx}
+            orderId={order.order_id}
             productId= {order.product_id}
             productName={order.product_name}
             productImgUrl={order.product_img_url}
@@ -90,6 +91,7 @@ const Orders = () => {
             productSize={order.size}
             productTotalAmount={order.total_amount}
             paymentMethod={order.payment_method}
+            paymentStatus={order.payment_status}
             orderDate={order.created_at}
           />
         ))

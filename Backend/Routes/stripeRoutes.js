@@ -1,18 +1,10 @@
+import express from "express";
+import { checkSession, createCheckoutSession } from "../Controller/stripeController.js";
+import { ensureUserAuthenticated } from "../Middlewares/ensureAuthenticated.js";
 
-import express from "express"
-import { checkSession, createCheckoutSession } from "../Controller/stripeController.js"
-import Stripe from "stripe"
-import bodyParser from "body-parser"
+const router = express.Router();
 
-const Router = express.Router()
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+router.post("/create-checkout-session", ensureUserAuthenticated, createCheckoutSession);
+router.get("/check-payment", ensureUserAuthenticated, checkSession);
 
-
-Router.post("/create-checkout-session",createCheckoutSession)
-Router.get("/check-payment",checkSession)
-
-
-
-
-
-export default Router
+export default router;

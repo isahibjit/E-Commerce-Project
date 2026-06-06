@@ -63,7 +63,7 @@ export const CartProvider = ({ children }) => {
   };
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
-      return total + item.product_price * item.quantity + item.shippingFee;
+      return total + item.product_price * item.quantity + item.shippingFee * item.quantity;
     }, 0);
   };
   return (

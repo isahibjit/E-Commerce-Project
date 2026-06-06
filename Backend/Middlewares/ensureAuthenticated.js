@@ -1,3 +1,11 @@
+export const ensureAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    return res.status(401).json({ message: "Unauthorized: Please login to access" });
+};
+
 export const ensureUserAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         if(!req.user.isadmin)

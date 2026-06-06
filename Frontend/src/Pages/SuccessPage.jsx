@@ -1,17 +1,13 @@
-// Success.jsx
-import React, { useContext, useEffect, useState } from "react";
-import successBg from "../assets/successBg.png";
-
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { CartContext } from "../Contexts/CartContext";
 import { TailChase } from "ldrs/react";
 import "ldrs/react/TailChase.css";
 
 const BACKEND_API = import.meta.env.VITE_BACKEND_API;
+
 const Success = () => {
-  const { cartItems, getTotalShippingFees } = useContext(CartContext);
   const [sessionData, setSessionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -20,6 +16,7 @@ const Success = () => {
     const fetchPaymentStatus = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const sessionId = urlParams.get("session_id");
+
       if (!sessionId) {
         setError("Session ID missing from URL.");
         setLoading(false);
@@ -27,39 +24,22 @@ const Success = () => {
       }
 
       try {
-        const res = await axios.get(
-          `${BACKEND_API}api/stripe/check-payment?session_id=${sessionId}`
-        );
+        const res = await axios.get(`${BACKEND_API}api/stripe/check-payment?session_id=${sessionId}`, {
+          withCredentials: true,
+        });
         const data = res.data;
-        console.log(data);
+
         if (data.payment_status === "paid") {
-          try {
-            const cartData = {
-              totalAmount: (data.total_amount || 0) / 100,
-              totalShippingFee: getTotalShippingFees(),
-            };
-            data.paymentInfo = cartData;
-            data.cartData = cartItems;
-            const response = await axios.post(
-              `${BACKEND_API}api/orders`,
-              data,
-              { withCredentials: true }
-            );
-            if (response.status === 201) {
-              setSessionData(data);
-              setLoading(false);
-              localStorage.removeItem("cart");
-            }
-          } catch (error) {
-            console.log("this is error", error);
-          }
+          setSessionData(data);
+          localStorage.removeItem("cart");
         } else {
           setError("Payment was not completed.");
         }
       } catch (err) {
-        setLoading(false);
-        console.error("❌ Error checking payment:", err.message);
+        console.error("Error checking payment:", err.message);
         setError("An error occurred while verifying payment.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -73,7 +53,7 @@ const Success = () => {
           <div className="flex flex-col gap-4 text-center">
             <FaCheckCircle className="text-green-600 text-6xl mx-auto" />
             <h1 className="text-4xl font-semibold text-gray-700">
-              Payment {sessionData ? "Successful 🎉" : "Status"}
+              Payment {sessionData ? "Successful" : "Status"}
             </h1>
 
             {loading ? (
@@ -84,11 +64,13 @@ const Success = () => {
             ) : sessionData ? (
               <div className="text-gray-600">
                 <p>
-                  <strong>Amount:</strong> ₹
-                  {(sessionData.total_amount || 0) / 100}
+                  <strong>Amount:</strong> Rs. {(sessionData.total_amount || 0) / 100}
                 </p>
                 <p>
                   <strong>Email:</strong> {sessionData.customer_email}
+                </p>
+                <p>
+                  <strong>Order ID:</strong> #{sessionData.orderId}
                 </p>
                 <Link to="/orders">
                   <button className="mt-4 text-2xl font-semibold bg-pink-400 py-2 px-4 rounded-lg text-white hover:scale-110 hover:bg-pink-500 transition-all duration-200 cursor-pointer">

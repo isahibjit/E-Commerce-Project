@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { downloadInvoice } from "../../../../utils/downloadInvoice";
 
 const OrderCard = ({ order }) => {
   const {
@@ -20,7 +21,7 @@ const OrderCard = ({ order }) => {
   } = order;
 
   const BACKEND_API = import.meta.env.VITE_BACKEND_API;
-  const { register, handleSubmit, watch, setValue } = useForm({
+  const { register, setValue } = useForm({
     defaultValues: {
       order_status: order_status,
     },
@@ -50,6 +51,14 @@ const OrderCard = ({ order }) => {
       console.log("Status updated:", response.data);
     } catch (error) {
       console.error("Failed to update order status:", error);
+    }
+  };
+
+  const handleDownloadInvoice = async () => {
+    try {
+      await downloadInvoice({ backendApi: BACKEND_API, orderId: order_id });
+    } catch (error) {
+      console.error("Failed to download invoice:", error);
     }
   };
 
@@ -98,6 +107,13 @@ const OrderCard = ({ order }) => {
             <option>Out for delivery</option>
             <option>Delivered</option>
           </select>
+          <button
+            type="button"
+            onClick={handleDownloadInvoice}
+            className="mt-3 border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:shadow-md transition-all duration-200"
+          >
+            Download Invoice
+          </button>
         </div>
       </div>
     </div>

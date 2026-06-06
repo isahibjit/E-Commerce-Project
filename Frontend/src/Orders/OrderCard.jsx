@@ -1,6 +1,8 @@
 import React from "react";
+import { downloadInvoice } from "../utils/downloadInvoice";
 
 const OrderCard = ({
+  orderId,
   productName,
   productImgUrl,
   productQuantity,
@@ -8,18 +10,26 @@ const OrderCard = ({
   productSize,
   productTotalAmount,
   paymentMethod,
+  paymentStatus,
   orderDate,
-  productId
+  productId,
 }) => {
+  const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   const date = new Date(orderDate);
-
-  const options = {
+  const orderDateFormatted = date.toLocaleDateString("en-US", {
     weekday: "short",
     month: "long",
     day: "numeric",
     year: "numeric",
+  });
+
+  const handleDownloadInvoice = async () => {
+    try {
+      await downloadInvoice({ backendApi: BACKEND_API, orderId });
+    } catch (error) {
+      console.error("Failed to download invoice:", error);
+    }
   };
-  const orderDateFormatted = date.toLocaleDateString("en-US", options);
 
   return (
     <article className=" border-gray-300 border border-x-0 py-4">
@@ -37,7 +47,7 @@ const OrderCard = ({
           <div className="flex flex-col justify-center gap-1">
             <h2 className="font-semibold">{productName}</h2>
             <div className="flex flex-wrap gap-3 text-sm text-gray-700 font-medium">
-              <span>₹{productTotalAmount}</span>
+              <span>Rs. {productTotalAmount}</span>
               <span>Quantity: {productQuantity}</span>
               <span>Size: {productSize}</span>
             </div>
@@ -47,16 +57,29 @@ const OrderCard = ({
             <p className="font-medium text-sm">
               Payment: <span className="text-gray-500">{paymentMethod}</span>
             </p>
+            <p className="font-medium text-sm">
+              Status: <span className="text-gray-500">{paymentStatus}</span>
+            </p>
           </div>
         </div>
-        <div className="flex md:w-1/2 w-full  justify-between">
+        <div className="flex md:w-1/2 w-full justify-between gap-3">
           <div className="flex items-center gap-2 text-sm text-green-600 font-semibold">
             <span className="w-2 h-2 rounded-full bg-green-400" />
             <span>{orderStatus}</span>
           </div>
 
-          <div>
-            <button className="border border-gray-300 px-4 py-2 cursor-pointer rounded-sm text-sm text-gray-700 hover:text-gray-900 hover:shadow-md hover:scale-105 active:scale-100 transition-all duration-200">
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={handleDownloadInvoice}
+              className="border border-gray-300 px-4 py-2 cursor-pointer rounded-sm text-sm text-gray-700 hover:text-gray-900 hover:shadow-md hover:scale-105 active:scale-100 transition-all duration-200"
+            >
+              Download Invoice
+            </button>
+            <button
+              type="button"
+              className="border border-gray-300 px-4 py-2 cursor-pointer rounded-sm text-sm text-gray-700 hover:text-gray-900 hover:shadow-md hover:scale-105 active:scale-100 transition-all duration-200"
+            >
               Track Order
             </button>
           </div>
