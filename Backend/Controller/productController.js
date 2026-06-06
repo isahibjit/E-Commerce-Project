@@ -101,6 +101,9 @@ export const uploadImage = async (req, res) => {
     try {
         const { productId } = req.body ? req.body : null
         const files = req.files || req.file
+        if (!files || (Array.isArray(files) && files.length === 0)) {
+            return res.status(400).json({ message: "At least one image is required." })
+        }
         // get the image from the frontend keep it into the backend for a few seconds then
         //upload it into the cloudinary then get it's url , and add this url in to the 
         // product_images table , with it's corresponding url so when I need to get i'll get it

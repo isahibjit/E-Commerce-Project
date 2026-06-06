@@ -10,4 +10,19 @@ const storage = multer.diskStorage({
       cb(null, uniqueSuffix + file.originalname)
     }
   })
-  export const upload = multer({storage})
+const fileFilter = (req, file, cb) => {
+  if (!file.mimetype.startsWith("image/")) {
+    cb(new Error("Only image uploads are allowed."));
+    return;
+  }
+
+  cb(null, true);
+};
+
+export const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    files: 4,
+  },
+})

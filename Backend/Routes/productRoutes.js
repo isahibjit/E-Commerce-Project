@@ -21,6 +21,6 @@ router.put("/update/:productId",ensureAdminAuthenticated,validateProduct,updateP
 router.delete("/:productId",ensureAdminAuthenticated,deleteProduct)
 router.get("/filter",(filterProduct))
 // Uploading Images using multer to the local storage
-router.post("/upload-images",upload.array("images",5),uploadImage) 
+router.post("/upload-images",ensureAdminAuthenticated,upload.array("images",4),uploadImage) 
 
 export default router
